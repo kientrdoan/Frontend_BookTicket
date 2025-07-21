@@ -14,7 +14,7 @@ export const HomeTemplate = (props) => {
         return (
           <React.Fragment>
             <Header {...propsRoute} />
-            <HomeCarousel />
+            
             <Component {...propsRoute} />
 
             <Footer />

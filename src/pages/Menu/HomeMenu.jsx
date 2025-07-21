@@ -1,37 +1,78 @@
-import React, { Fragment } from 'react';
-import { Tabs, Radio, Space } from 'antd';
-// import { connect } from 'react-redux';
+import React, { Fragment, useState } from 'react';
+import { Tabs } from 'antd';
+import { NavLink } from 'react-router-dom';
+import moment from 'moment';
 const { TabPane } = Tabs;
 
-export default class HomeMenu extends React.PureComponent {
+const HomeMenu = ({ heThongRapChieu }) => {
+    const [tabPosition] = useState('left');
+    console.log("rap", heThongRapChieu)
 
-
-    state = {
-        tabPosition: 'left',
+    const renderHeThongRap = () => {
+        return heThongRapChieu?.map((heThongRap, index) => (
+            <TabPane
+                tab={<img src={heThongRap.logo} className="rounded-full" width="50" alt={heThongRap.tenHeThongRap} />}
+                key={index}
+            >
+                <Tabs tabPosition={tabPosition}>
+                    {heThongRap.lstCumRap?.map((cumRap, idx) => (
+                        <TabPane
+                            tab={
+                                <div style={{ width: '300px', display: 'flex' }}>
+                                    {/* <img src="https://s3img.vcdn.vn/123phim/2018/09/ddc-dong-da-15379624326697.jpg" width="50" alt={cumRap.tenCumRap} /> */}
+                                    <div className="text-left ml-2">
+                                        {cumRap.tenCumRap}
+                                        <p className="text-red-200">Chi tiết</p>
+                                    </div>
+                                </div>
+                            }
+                            key={idx}
+                        >
+                            {cumRap.danhSachPhim.slice(0, 4).map((phim, phimIdx) => (
+                                <Fragment key={phimIdx}>
+                                    <div className="my-5">
+                                        <div style={{ display: 'flex' }}>
+                                            <img
+                                                style={{ height: 75, width: 75 }}
+                                                src={phim.hinhAnh}
+                                                alt={phim.tenPhim}
+                                                onError={e => {
+                                                    e.target.onerror = null;
+                                                    e.target.src = "https://picsum.photos/75/75";
+                                                }}
+                                            />
+                                            <div className="ml-2">
+                                                <h1 className="text-2xl text-green-700">{phim.tenPhim}</h1>
+                                                <p>{cumRap.diaChi}</p>
+                                                <div className="grid grid-cols-6 gap-6">
+                                                    {phim.lstLichChieuTheoPhim?.slice(0, 12).map((lichChieu, lcIdx) => (
+                                                        <NavLink
+                                                            className="text-2xl text-green-400"
+                                                            to={`/checkout/${lichChieu.maLichChieu}`}
+                                                            key={lcIdx}
+                                                        >
+                                                            {moment(lichChieu.ngayChieuGioChieu).format('hh:mm A')}
+                                                        </NavLink>
+                                                    ))}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr />
+                                </Fragment>
+                            ))}
+                        </TabPane>
+                    ))}
+                </Tabs>
+            </TabPane>
+        ));
     };
 
-    changeTabPosition = e => {
-        this.setState({ tabPosition: e.target.value });
-    };
-    componentDidMount() {
+    return (
+        <Tabs tabPosition={tabPosition}>
+            {renderHeThongRap()}
+        </Tabs>
+    );
+};
 
-    }
-    render() {
-        const { tabPosition } = this.state;
-        return (
-        <>
-            <Tabs tabPosition={tabPosition}>
-            <TabPane tab="Tab 1" key="1">
-                Content of Tab 1
-            </TabPane>
-            <TabPane tab="Tab 2" key="2">
-                Content of Tab 2
-            </TabPane>
-            <TabPane tab="Tab 3" key="3">
-                Content of Tab 3
-            </TabPane>
-            </Tabs>
-        </>
-        );
-  }
-}
+export default HomeMenu;

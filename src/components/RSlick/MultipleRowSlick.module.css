@@ -16,3 +16,14 @@
 .width-item {
     width: 100%  !important;
 }
+
+.active_Film {
+    background-color: #2d3748; /* Tailwind bg-gray-800 */
+    color: #fff; /* Tailwind text-white */
+}
+
+.none_active_Film {
+    background-color: #fff; /* Tailwind bg-white */
+    color: #2d3748; /* Tailwind text-gray-800 */
+}
+
