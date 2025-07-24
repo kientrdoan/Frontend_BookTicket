@@ -3,16 +3,17 @@ import React, { useEffect } from "react";
 import style from "../assets/styles/Checkout.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { layChiTietPhongVeAction } from "../redux/actions/QuanLyDatVeActions";
+import SelectSeat from "../components/RenderSeat/render_seat";
 
 export default function Checkout(props) {
 
-   const {chiTietPhongVe} = useSelector(state => state.QuanLyDatVeReducer)
-    console.log(chiTietPhongVe)
-   const dispatch = useDispatch()
-    useEffect(()=>{
-        var action = layChiTietPhongVeAction(props.match.params.id)
-        dispatch(action)
-    },  [])
+  const { chiTietPhongVe } = useSelector((state) => state.QuanLyDatVeReducer);
+  console.log(chiTietPhongVe);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    var action = layChiTietPhongVeAction(props.match.params.id);
+    dispatch(action);
+  }, []);
 
   return (
     <div className='container min-h-screen' style={{ minHeight: "100vh" }}>
@@ -30,6 +31,9 @@ export default function Checkout(props) {
             <div className={`${style["trapezoid"]} text-center`}>
               <h3 className='mt-3 text-black'>Màn hình</h3>
             </div>
+
+            {/* Render Ghe Ngoi */}
+            <SelectSeat></SelectSeat>
           </div>
         </div>
 
