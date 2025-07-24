@@ -41,7 +41,7 @@ const MultipleRowSlick = (props) => {
   let activeClassSC = sapChieu === true ? "active_Film" : "none_active_Film";
 
   const renderFilms = () => {
-    return props.arrFilm.slice(0, 12).map((item, index) => {
+    return props.arrFilm.map((item, index) => {
       return (
         <div className='mt-2' key={index}>
           <Film_Flip phim={item}></Film_Flip>
