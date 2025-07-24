@@ -4,7 +4,8 @@ import { CHUYEN_TAB, DAT_VE, DAT_VE_HOAN_TAT, SET_CHI_TIET_PHONG_VE } from '../a
 
 
 const stateDefault = {
-    chiTietPhongVe: new ThongTinLichChieu(),
+    chiTietPhongVe: {},
+    // chiTietPhongVe: new ThongTinLichChieu(),
     danhSachGheDangDat: [], //danh sách ghế đang đặt
     danhSachGheKhachDat: [],
     // [{maGhe:48041},{maGhe:48042}],

@@ -10,11 +10,7 @@ import { CHUYEN_TAB, DAT_VE, DAT_VE_HOAN_TAT, SET_CHI_TIET_PHONG_VE } from "./ty
 
 
 export const layChiTietPhongVeAction = (maLichChieu) => {
-
-
     return async dispatch => {
-
-
         try {
 
             const result = await quanLyDatVeService.layChiTietPhongVe(maLichChieu);
@@ -26,10 +22,7 @@ export const layChiTietPhongVeAction = (maLichChieu) => {
                     chiTietPhongVe: result.data.content
                 })
             }
-
-
         } catch (error) {
-
             console.log('error', error);
             console.log('error', error.response?.data);
         }
@@ -38,14 +31,9 @@ export const layChiTietPhongVeAction = (maLichChieu) => {
 
 
 export const datVeAction = (thongTinDatVe = new ThongTinDatVe()) => {
-
-
     return async (dispatch, getState) => {
         try {
-
             // dispatch(displayLoadingAction)
-
-
             const result = await quanLyDatVeService.datVe(thongTinDatVe);
             console.log(result.data.content);
             //Đặt vé thành công gọi api load lại phòng vé
@@ -57,14 +45,11 @@ export const datVeAction = (thongTinDatVe = new ThongTinDatVe()) => {
             //  connection.invoke('datGheThanhCong',userLogin.taiKhoan,thongTinDatVe.maLichChieu);
 
             dispatch({type:CHUYEN_TAB});
-
-
         } catch (error) {
             // dispatch(hideLoadingAction)
             console.log(error.response.data);
         }
     }
-
 }
 
 export const datGheAction = (ghe,maLichChieu) => {
