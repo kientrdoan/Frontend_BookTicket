@@ -5,22 +5,24 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { NavLink } from "react-router-dom";
 import { dangNhapAction } from "../redux/actions/QuanLyNguoiDungAction";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 
 export default function Login(props) {
   const dispatch = useDispatch();
+  const history= useHistory()
 
   const { userLogin } = useSelector((state) => state.QuanLyNguoiDungReducer);
 
-  console.log("userLogin", userLogin);
+  // console.log("userLogin", userLogin);
 
   const formik = useFormik({
     initialValues: {
-      taiKhoan: "",
-      matKhau: "",
+      username: "",
+      password: "",
     },
     onSubmit: (values) => {
-      const action = dangNhapAction(values);
+      const action = dangNhapAction(values, history);
       dispatch(action);
 
       console.log("values", values);
@@ -46,7 +48,7 @@ export default function Login(props) {
                 Tài khoản
               </div>
               <input
-                name='taiKhoan'
+                name='username'
                 onChange={formik.handleChange}
                 className='w-full text-lg py-2 border-b border-gray-300 focus:outline-none focus:border-indigo-500'
                 placeholder='Nhập vào tài khoản'
@@ -68,7 +70,7 @@ export default function Login(props) {
               </div>
               <input
                 type='password'
-                name='matKhau'
+                name='password'
                 onChange={formik.handleChange}
                 className='w-full text-lg py-2 border-b border-gray-300 focus:outline-none focus:border-indigo-500'
                 placeholder='Nhập vào mật khẩu'

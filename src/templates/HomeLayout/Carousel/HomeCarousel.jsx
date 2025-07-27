@@ -9,14 +9,14 @@ import { getCarouselAction } from '../../../redux/actions/CarouselAction';
 export default function HomeCarousel() {
 
     const {arrImg} = useSelector(state => state.CarouselReducer);
-    const dispath= useDispatch();
+    // const dispath= useDispatch();
 
     useEffect(() => {
-        async function fetchData() {
-           const action= getCarouselAction
-           dispath(action);
-        }
-        fetchData();
+        // async function fetchData() {
+        //    const action= getCarouselAction
+        //    dispath(action);
+        // }
+        // fetchData();
     }, []);
 
     const contentStyle = {

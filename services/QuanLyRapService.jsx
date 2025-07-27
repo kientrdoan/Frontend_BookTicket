@@ -7,15 +7,16 @@ export class QuanLyRapService extends baseService {
   }
 
   layDanhSachHeThongRap = () => {
-    return this.get(
-      `/api/QuanLyRap/LayThongTinLichChieuHeThongRap?maNhom=${GROUPID}`
-    );
+    return this.get(`/cinemas`);
   };
 
-  layThongTinLichChieuPhim = (maPhim) => {
-        return this.get(`/api/QuanLyRap/LayThongTinLichChieuPhim?maPhim=${maPhim}`)
-    }
+  layThongTinChiTietPhim = (id) => {
+    return this.get(`/movies/${id}`);
+  };
 
+  layThongTinLichChieuPhim = (id) => {
+    return this.get(`/cinemas/${id}`);
+  };
 }
 
 export const quanLyRapService = new QuanLyRapService();

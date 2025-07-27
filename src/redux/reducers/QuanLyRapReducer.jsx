@@ -1,20 +1,23 @@
-import { SET_HE_THONG_RAP_CHIEU } from "../actions/types/QuanLyRap";
+import { SET_HE_THONG_RAP_CHIEU, SET_LICH_CHIEU_PHIM } from "../actions/types/QuanLyRap";
 
 const stateDefault = {
-    heThongRapChieu: []
-}
+  heThongRapChieu: [],
+  lichChieuPhim: [],
+};
 
-
-
-export const QuanLyRapReducer = (state=stateDefault,action) =>{
-
-    switch (action.type) {
-      
-        case SET_HE_THONG_RAP_CHIEU : {
-            state.heThongRapChieu = action.heThongRapChieu;
-            return {...state};
-        }
-
-        default: return {...state}
+export const QuanLyRapReducer = (state = stateDefault, action) => {
+  switch (action.type) {
+    case SET_HE_THONG_RAP_CHIEU: {
+      state.heThongRapChieu = action.heThongRapChieu;
+      return { ...state };
     }
-}
+
+    case SET_LICH_CHIEU_PHIM: {
+      state.heThongRapChieu = action.heThongRapChieu;
+      return { ...state };
+    }
+
+    default:
+      return { ...state };
+  }
+};

@@ -5,12 +5,14 @@ import { Redirect, NavLink } from "react-router-dom";
 import { TOKEN } from "../../../../util/settings/config";
 import _ from "lodash";
 import { USER_LOGIN } from "../../../utils/settings/config";
-import { history } from '../../../App';
+import { useHistory } from 'react-router-dom';
 
 const { Option } = Select;
 
 export default function Header() {
+  const history = useHistory();
   const { userLogin } = useSelector((state) => state.QuanLyNguoiDungReducer);
+  console.log("userLogin", userLogin)
 
   const renderLogin = () => {
     if (_.isEmpty(userLogin)) {
@@ -18,8 +20,9 @@ export default function Header() {
         <Fragment>
           <button
             onClick={() => {
-              history.push("/login");
+              history.push('/login');
             }}
+            // to="/login"
             className='self-center px-8 py-3 rounded'
           >
             {"signin"}
@@ -45,13 +48,13 @@ export default function Header() {
           }}
           className='self-center px-8 py-3 rounded'
         >
-          Hello ! {userLogin.taiKhoan}
+        UserName ! {userLogin.userName}
         </button>
         <button
           onClick={() => {
             localStorage.removeItem(USER_LOGIN);
             localStorage.removeItem(TOKEN);
-            history.push("/home");
+            history.push("/");
             window.location.reload();
           }}
           className='text-yellow-500 mr-5'
@@ -61,6 +64,7 @@ export default function Header() {
       </Fragment>
     );
   };
+
   return (
     <header className='p-4 bg-coolGray-100 text-coolGray-800 bg-opacity-40 bg-black text-white fixed w-full z-10'>
       <div className='container flex justify-between h-16 mx-auto'>
@@ -82,16 +86,28 @@ export default function Header() {
               Home
             </NavLink>
           </li>
+
           <li className='flex'>
             <NavLink
-              to='/contact'
+              to='/'
               className='flex items-center -mb-0.5 border-b-2 px-4 border-transparent text-white'
               activeClassName='border-b-2 border-white'
             >
-              Contact
+              Lịch chiếu
             </NavLink>
           </li>
+
           <li className='flex'>
+            <NavLink
+              to='/'
+              className='flex items-center -mb-0.5 border-b-2 px-4 border-transparent text-white'
+              activeClassName='border-b-2 border-white'
+            >
+              Cụm rạp
+            </NavLink>
+          </li>
+
+          {/* <li className='flex'>
             <NavLink
               to='/news'
               className='flex items-center -mb-0.5 border-b-2 px-4 border-transparent text-white'
@@ -99,13 +115,13 @@ export default function Header() {
             >
               News
             </NavLink>
-          </li>
+          </li> */}
         </ul>
 
         <div className='items-center flex-shrink-0 hidden lg:flex'>
           {renderLogin()}
 
-          <Select
+          {/* <Select
             defaultValue='en'
             style={{ width: 100 }}
             // onChange={handleChange}
@@ -114,7 +130,7 @@ export default function Header() {
             <Option value='chi'>Chi</Option>
 
             <Option value='vi'>Vi</Option>
-          </Select>
+          </Select> */}
         </div>
         <button className='p-4 lg:hidden'>
           <svg

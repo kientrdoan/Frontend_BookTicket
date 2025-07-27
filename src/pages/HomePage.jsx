@@ -10,8 +10,9 @@ import HomeCarousel from "../templates/HomeLayout/Carousel/HomeCarousel";
 export default function Home() {
   const { arrFilm } = useSelector((state) => state.QuanLyPhimReducer);
   const { heThongRapChieu } = useSelector((state) => state.QuanLyRapReducer);
-  // console.log("He Thong Rap", heThongRapChieu)
-  console.log("array film", arrFilm)
+  
+  console.log("He Thong Rap", heThongRapChieu)
+  // console.log("array film", arrFilm)
 
   const dispatch = useDispatch();
 
@@ -25,13 +26,15 @@ export default function Home() {
     const action = layDanhSachPhimAction();
 
     dispatch(action);
+
+    dispatch(layDanhSachHeThongRapAction());
   }, []);
 
-  useEffect(()=>{
-    const action = layDanhSachHeThongRapAction()
-    // Lay danh sach he thong rap
-    dispatch(action);
-  })
+  // useEffect(()=>{
+  //   // const action = layDanhSachHeThongRapAction()
+  //   // Lay danh sach he thong rap
+  //   // dispatch(layDanhSachHeThongRapAction());
+  // })
 
   return (
     <div>

@@ -1,21 +1,22 @@
 import { baseService } from "./BaseServices";
 
-export class QuanLyNguoiDungService  extends baseService{
+export class QuanLyNguoiDungService extends baseService {
+  constructor() {
+    super();
+  }
 
-    constructor() {
-        super();
-    }
+  dangNhap = (thongTinDangNhap) => {
+    // {taiKhoan:'',matKhau:''}
+    return this.post("/auth/login", thongTinDangNhap);
+  };
 
-    dangNhap = (thongTinDangNhap) => { // {taiKhoan:'',matKhau:''}
-        return this.post(`/api/QuanLyNguoiDung/DangNhap`,thongTinDangNhap);
-    }
-    
-    layThongTinNguoiDung = () => {
-        return this.post('/api/QuanLyNguoiDung/ThongTinTaiKhoan');
-    }
-  
+  dangKy = (thongTinDangKy) => {
+    return this.post("/accounts/register", thongTinDangKy);
+  };
+
+  layThongTinNguoiDung = () => {
+    return this.post("/api/QuanLyNguoiDung/ThongTinTaiKhoan");
+  };
 }
-
-
 
 export const quanLyNguoiDungService = new QuanLyNguoiDungService();

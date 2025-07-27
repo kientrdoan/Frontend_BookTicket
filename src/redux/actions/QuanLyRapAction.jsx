@@ -15,7 +15,7 @@ export const layDanhSachHeThongRapAction = () => {
                 dispatch(
                     {
                         type: SET_HE_THONG_RAP_CHIEU,
-                        heThongRapChieu: result.data.content 
+                        heThongRapChieu: result.data.result 
                     }
                 )
             } 
@@ -30,14 +30,36 @@ export const layDanhSachHeThongRapAction = () => {
 export const layThongTinChiTietPhim = (id) => {
     return async dispatch => {
         try{
-            const result = await quanLyRapService.layThongTinLichChieuPhim(id);
+            const result = await quanLyRapService.layThongTinChiTietPhim(id);
 
-            console.log('result',result);
+            // console.log('chi tiet phim result', result);
             //Lấy được dữ liệu từ api về  => reducer
 
             dispatch({
                 type: SET_CHI_TIET_PHIM,
-                filmDetail: result.data.content
+                filmDetail: result.data.result
+            })
+
+
+        }
+        catch(errors) {
+            console.log('errors',errors.response?.data)
+
+        }
+    }
+}
+
+export const layThongTinLichChieuPhim = (id) => {
+    return async dispatch => {
+        try{
+            const result = await quanLyRapService.layThongTinLichChieuPhim(id);
+
+            console.log('Lich Chieu Phim', result);
+            //Lấy được dữ liệu từ api về  => reducer
+
+            dispatch({
+                type: SET_CHI_TIET_PHIM,
+                filmDetail: result.data.result
             })
 
 

@@ -16,21 +16,21 @@ const { TabPane } = Tabs;
 export default function Detail(props) {
   const filmDetail = useSelector((state) => state.QuanLyPhimReducer.filmDetail);
 
-  console.log({ filmDetail });
+  // console.log("film detail", filmDetail);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
     //Lấy thông tin param từ url
     let { id } = props.match.params;
-
+    console.log("id", id)
     dispatch(layThongTinChiTietPhim(id));
   }, []);
 
   return (
     <div
       style={{
-        backgroundImage: `url(${filmDetail.hinhAnh})`,
+        backgroundImage: `url(${filmDetail.poster})`,
         backgroundSize: "100%",
         backgroundPosition: "center",
         minHeight: "100vh",
@@ -49,7 +49,7 @@ export default function Detail(props) {
               {/* Hinh anh */}
               <img
                 className='col-span-1'
-                src={filmDetail.hinhAnh}
+                src={filmDetail.poster}
                 style={{ width: "100%", height: 300 }}
                 alt='123'
               />
@@ -58,12 +58,12 @@ export default function Detail(props) {
                 
                 <p className='text-sm mb-4'>
                   Ngày chiếu:{" "}
-                  {moment(filmDetail.ngayKhoiChieu).format("DD.MM.YYYY")}
+                  {moment(filmDetail.releaseDate).format("DD.MM.YYYY")}
                 </p>
 
-                <p className='text-4xl leading-3 mb-4'>{filmDetail.tenPhim}</p>
+                <p className='text-4xl leading-3 mb-4'>{filmDetail.title}</p>
 
-                <p>{filmDetail.moTa}</p>
+                <p>{filmDetail.description}</p>
               </div>
             </div>
           </div>

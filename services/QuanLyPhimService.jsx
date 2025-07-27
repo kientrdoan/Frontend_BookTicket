@@ -14,15 +14,15 @@ export class QuanLyPhimService  extends baseService{
     
     layDanhSachPhim = (tenPhim='') => {
         if(tenPhim.trim()!=''){
-            return this.get(`/api/QuanLyPhim/LayDanhSachPhim?maNhom=${GROUPID}&tenPhim=${tenPhim}`)
+            return this.get(`movies&tenPhim=${tenPhim}`)
         }
-        return this.get(`/api/QuanLyPhim/LayDanhSachPhim?maNhom=${GROUPID}`)
+        return this.get(`/movies`)
 
     }
 
-    layThongTinPhim = (maPhim) => {
-        return this.get(`/api/QuanLyPhim/LayThongTinPhim?MaPhim=${maPhim}`)
-    }
+    // layThongTinPhim = (maPhim) => {
+    //     return this.get(`/api/QuanLyPhim/LayThongTinPhim?MaPhim=${maPhim}`)
+    // }
     
 }
 

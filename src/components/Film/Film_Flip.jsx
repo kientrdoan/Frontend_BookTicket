@@ -12,7 +12,7 @@ export default function Film_Flip(props) {
       <div className='flip-card-inner'>
         <div className='flip-card-front'>
           <img
-            src={phim.hinhAnh}
+            src={phim.poster}
             alt='Avatar'
             style={{ width: 300, height: 200 }}
             onError={(e) => {
@@ -27,7 +27,7 @@ export default function Film_Flip(props) {
         >
           <div style={{ position: "absolute", top: 0, left: 0 }}>
             <img
-              src={phim.hinhAnh}
+              src={phim.poster}
               alt='Avatar'
               style={{ width: 300, height: 200 }}
               onError={(e) => {
@@ -50,13 +50,13 @@ export default function Film_Flip(props) {
               <div className='rounded-full cursor-pointer'>
                 <PlayCircleOutlined style={{ fontSize: "50px" }} />
               </div>
-              <div className='text-2xl mt-2 font-bold'>{phim.tenPhim}</div>
+              <div className='text-2xl mt-2 font-bold'>{phim.title}</div>
             </div>
           </div>
         </div>
       </div>
       <NavLink
-        to = {`/detail/${phim.maPhim}`}
+        to = {`/detail/${phim.id}`}
         className='block bg-orange-300 text-center cursor-pointer py-2 bg-indigo-300 my-2 text-success-50 font-bold'
       >
         ĐẶT VÉ

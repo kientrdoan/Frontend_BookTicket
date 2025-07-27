@@ -11,24 +11,24 @@ const HomeMenu = ({ heThongRapChieu }) => {
     const renderHeThongRap = () => {
         return heThongRapChieu?.map((heThongRap, index) => (
             <TabPane
-                tab={<img src={heThongRap.logo} className="rounded-full" width="50" alt={heThongRap.tenHeThongRap} />}
+                // tab={<img src={heThongRap.logo} className="rounded-full" width="50" alt={heThongRap.name} />}
+                tab={<h2>{heThongRap.name}</h2>}
                 key={index}
             >
                 <Tabs tabPosition={tabPosition}>
-                    {heThongRap.lstCumRap?.map((cumRap, idx) => (
+                    {heThongRap.rooms?.map((cumRap, idx) => (
                         <TabPane
                             tab={
                                 <div style={{ width: '300px', display: 'flex' }}>
-                                    {/* <img src="https://s3img.vcdn.vn/123phim/2018/09/ddc-dong-da-15379624326697.jpg" width="50" alt={cumRap.tenCumRap} /> */}
                                     <div className="text-left ml-2">
-                                        {cumRap.tenCumRap}
+                                        {cumRap.name}
                                         <p className="text-red-200">Chi tiết</p>
                                     </div>
                                 </div>
                             }
                             key={idx}
                         >
-                            {cumRap.danhSachPhim.slice(0, 4).map((phim, phimIdx) => (
+                            {/* {cumRap.danhSachPhim.slice(0, 4).map((phim, phimIdx) => (
                                 <Fragment key={phimIdx}>
                                     <div className="my-5">
                                         <div style={{ display: 'flex' }}>
@@ -60,7 +60,7 @@ const HomeMenu = ({ heThongRapChieu }) => {
                                     </div>
                                     <hr />
                                 </Fragment>
-                            ))}
+                            ))} */}
                         </TabPane>
                     ))}
                 </Tabs>

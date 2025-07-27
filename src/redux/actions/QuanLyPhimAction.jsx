@@ -5,10 +5,10 @@ export const layDanhSachPhimAction = () => {
   return async (dispath) => {
     try {
       const result = await quanLyPhimService.layDanhSachPhim();
-
+      // console.log(result)
       dispath({
         type: SET_DANH_SACH_PHIM,
-        arrFilm: result.data.content,
+        arrFilm: result.data.result,
       });
     } catch (error) {
         console.log(error)
