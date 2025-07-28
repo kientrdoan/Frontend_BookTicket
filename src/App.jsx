@@ -16,6 +16,7 @@ import Profile from "./pages/Profile";
 import { ProfileTemplate } from "./templates/ProfileTemplate";
 import BookingHistory from "./pages/history";
 import Register from "./pages/Register";
+import PaymentResult from "./pages/PaymentResult";
 // import News from './pages/News';
 
 // export const history = createBrowserHistory();
@@ -30,11 +31,14 @@ function App() {
 
         <UserTemplate exact path='/login' Component={Login} />
         <UserTemplate exact path='/register' Component={Register} />
-        
+
         <ProfileTemplate exact path='/profile' Component={Profile} />
         <ProfileTemplate exact path='/history' Component={BookingHistory} />
 
         <CheckoutTemplate path='/checkout/:id' exact Component={Checkout} />
+
+        <HomeTemplate exact path='/payment/success' Component={PaymentResult} />
+        {/* <Route path='/payment/result' element={<PaymentResult />} /> */}
 
         {/* <HomeTemplate exact path='/news' Component={News} /> */}
       </Switch>

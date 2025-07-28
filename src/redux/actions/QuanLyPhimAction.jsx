@@ -15,3 +15,19 @@ export const layDanhSachPhimAction = () => {
     }
   };
 };
+
+
+export const layDanhSachPhimTheoCinameAndRoomAction = (idRoom) => {
+  return async (dispath) => {
+    try {
+      const result = await quanLyPhimService.layDanhSachPhimTheoCinemaAndRoom(idRoom);
+      console.log("FILM BY ROOM", result)
+      dispath({
+        type: "SET_PHIM_BY_ROOM",
+        arrFilmByRoom: result.data.result,
+      });
+    } catch (error) {
+        console.log(error)
+    }
+  };
+};

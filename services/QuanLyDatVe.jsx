@@ -1,16 +1,17 @@
 import { ThongTinDatVe } from "../src/_core/models/ThongTinDatVe";
 import { baseService } from "./BaseServices";
 
-export class QuanLyDatVeService  extends baseService{
+export class QuanLyDatVeService extends baseService {
+  constructor() {
+    super();
+  }
 
-    constructor() {
-        super();
-    }
+  layChiTietPhongVe = (idLichChieu) => {
+    // mã lịch chiếu lấy từ url
+    return this.get(`/showtimes/${idLichChieu}`);
+  };
 
-    layChiTietPhongVe = (maLichChieu) => { // mã lịch chiếu lấy từ url 
-        return this.get(`/api/QuanLyDatVe/LayDanhSachPhongVe?MaLichChieu=${maLichChieu}`);
-    }
-    /* thongTinDatVe =  {
+  /* thongTinDatVe =  {
         "maLichChieu": 0,
         "danhSachVe": [
           {
@@ -18,13 +19,15 @@ export class QuanLyDatVeService  extends baseService{
             "giaVe": 0
           }
         ]
-      }*/ 
-    
-    datVe = (thongTinDatVe = new ThongTinDatVe()) => { 
-        return this.post(`/api/QuanLyDatVe/DatVe`,thongTinDatVe);
-    }
+      }*/
+
+  datVe = (thongTinDatVe) => {
+    return this.post_token(`/bookings`, thongTinDatVe);
+  };
+  
+  layThongTinTicket = (id) => {
+    return this.get_token(`/tickets/showtime/${id}`);
+  };
 }
-
-
 
 export const quanLyDatVeService = new QuanLyDatVeService();

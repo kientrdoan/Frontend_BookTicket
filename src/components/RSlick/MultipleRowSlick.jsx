@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { Component } from "react";
 import Slider from "react-slick";
 import styleSlick from "./MultipleRowSlick.module.css";
@@ -33,12 +34,12 @@ function SamplePrevArrow(props) {
 
 const MultipleRowSlick = (props) => {
   const dispatch = useDispatch();
-  const { dangChieu, sapChieu } = useSelector(
-    (state) => state.QuanLyPhimReducer
-  );
+  // const { dangChieu, sapChieu } = useSelector(
+  //   (state) => state.QuanLyPhimReducer
+  // );
 
-  let activeClassDC = dangChieu === true ? "active_Film" : "none_active_Film";
-  let activeClassSC = sapChieu === true ? "active_Film" : "none_active_Film";
+  // let activeClassDC = dangChieu === true ? "active_Film" : "none_active_Film";
+  // let activeClassSC = sapChieu === true ? "active_Film" : "none_active_Film";
 
   const renderFilms = () => {
     return props.arrFilm.map((item, index) => {
@@ -66,7 +67,7 @@ const MultipleRowSlick = (props) => {
 
   return (
     <div>
-      <div className="flex justify-center">
+      {/* <div className="flex justify-center">
         <button
           className={`${styleSlick[activeClassDC]} px-8 py-3 font-semibold rounded bg-gray-800 text-white mr-2`}
           onClick={() => {
@@ -86,7 +87,7 @@ const MultipleRowSlick = (props) => {
         >
           PHIM SẮP CHIẾU
         </button>
-      </div>
+      </div> */}
 
       <Slider {...settings}>{renderFilms()}</Slider>
     </div>

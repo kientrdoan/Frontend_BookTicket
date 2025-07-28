@@ -4,7 +4,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import { NavLink } from "react-router-dom";
-import { dangNhapAction } from "../redux/actions/QuanLyNguoiDungAction";
+import { dangNhapAction, layThongTinNguoiDungAction } from "../redux/actions/QuanLyNguoiDungAction";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 
@@ -25,7 +25,9 @@ export default function Login(props) {
       const action = dangNhapAction(values, history);
       dispatch(action);
 
-      console.log("values", values);
+      dispatch(layThongTinNguoiDungAction())
+
+      // console.log("values", values);
     },
   });
 

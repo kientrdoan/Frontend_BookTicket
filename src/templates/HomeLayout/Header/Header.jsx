@@ -66,7 +66,7 @@ export default function Header() {
   };
 
   return (
-    <header className='p-4 bg-coolGray-100 text-coolGray-800 bg-opacity-40 bg-black text-white fixed w-full z-10'>
+    <header style={{backgroundColor: "#797979ff"}} className='p-4 bg-coolGray-100 text-coolGray-800 bg-opacity-40 bg-black text-white fixed w-full z-10'>
       <div className='container flex justify-between h-16 mx-auto'>
         <NavLink
           to='/'
@@ -81,7 +81,7 @@ export default function Header() {
             <NavLink
               to='/'
               className='flex items-center -mb-0.5 border-b-2 px-4 border-transparent text-violet-600 border-violet-600 text-white'
-              activeClassName='border-b-2 border-white'
+              // activeClassName='border-b-2 border-white'
             >
               Home
             </NavLink>
@@ -91,7 +91,7 @@ export default function Header() {
             <NavLink
               to='/'
               className='flex items-center -mb-0.5 border-b-2 px-4 border-transparent text-white'
-              activeClassName='border-b-2 border-white'
+              // activeClassName='border-b-2 border-white'
             >
               Lịch chiếu
             </NavLink>
@@ -101,7 +101,7 @@ export default function Header() {
             <NavLink
               to='/'
               className='flex items-center -mb-0.5 border-b-2 px-4 border-transparent text-white'
-              activeClassName='border-b-2 border-white'
+              // activeClassName='border-b-2 border-white'
             >
               Cụm rạp
             </NavLink>

@@ -46,7 +46,7 @@ export default function Register(props) {
       const action = dangKyAction(finalValues);
       dispatch(action);
 
-      console.log("finalValues", finalValues);
+      // console.log("finalValues", finalValues);
     },
   });
 

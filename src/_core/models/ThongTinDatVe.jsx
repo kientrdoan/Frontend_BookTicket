@@ -1,7 +1,8 @@
 export class ThongTinDatVe { 
-    maLichChieu = 0;
-    danhSachVe = [];
-    constructor () {
-        
+    showtimeId = 0;
+    seatIds = [];
+    constructor (showtimeId, seatIds) {
+        this.showtimeId = showtimeId,
+        this.seatIds = seatIds
     }
 }

@@ -1,4 +1,7 @@
-import { SET_HE_THONG_RAP_CHIEU, SET_LICH_CHIEU_PHIM } from "../actions/types/QuanLyRap";
+import {
+  SET_HE_THONG_RAP_CHIEU,
+  SET_LICH_CHIEU_PHIM,
+} from "../actions/types/QuanLyRap";
 
 const stateDefault = {
   heThongRapChieu: [],
@@ -13,7 +16,7 @@ export const QuanLyRapReducer = (state = stateDefault, action) => {
     }
 
     case SET_LICH_CHIEU_PHIM: {
-      state.heThongRapChieu = action.heThongRapChieu;
+      state.lichChieuPhim = action.lichChieuPhim;
       return { ...state };
     }
 

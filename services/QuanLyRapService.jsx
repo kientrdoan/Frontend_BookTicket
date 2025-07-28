@@ -15,7 +15,7 @@ export class QuanLyRapService extends baseService {
   };
 
   layThongTinLichChieuPhim = (id) => {
-    return this.get(`/cinemas/${id}`);
+    return this.get_token(`/showtimes/movie/${id}`);
   };
 }
 

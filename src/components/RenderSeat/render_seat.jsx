@@ -1,70 +1,72 @@
-import React, { useMemo } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import SeatCell from "./seat_cell";
 
 export default function SelectSeat() {
   const dispatch = useDispatch();
-  const { danhSachGheDangDat } = useSelector(state => state.QuanLyDatVeReducer);
+  const { infoShowtime, danhSachGheDangDat, danhSachIdGheDangDat, infoTicket } =
+    useSelector((state) => state.QuanLyDatVeReducer);
 
-  const chuyenXe = { listMaGhe: [] };
+  const seats = infoShowtime?.room?.seats || [];
 
-  const handleSelectSeat = (seat) => {
-    let index = danhSachGheDangDat.indexOf(seat);
-    let existInListVeXe = chuyenXe.listMaGhe.indexOf(seat);
+  console.log("info ticket", infoTicket);
 
-    if (existInListVeXe === -1) {
-      let newData = [...danhSachGheDangDat];
-      if (index !== -1) {
-        newData.splice(index, 1);
+  const handleSelectSeat = (seatLabel, seatId) => {
+    const index = danhSachGheDangDat.indexOf(seatLabel);
+    const newSelection = [...danhSachGheDangDat];
+    const newIdSelection = [...(danhSachIdGheDangDat || [])];
+
+    if (index !== -1) {
+      newSelection.splice(index, 1);
+      newIdSelection.splice(index, 1);
+    } else {
+      if (newSelection.length < 5) {
+        newSelection.push(seatLabel);
+        newIdSelection.push(seatId);
       } else {
-        if (newData.length < 5) {
-          newData.push(seat);
-        } else {
-          return;
-        }
+        return;
       }
-
-      dispatch({
-        type: "CHANGE_SELECT_SEAT",
-        danhSachGheDangDat: newData,
-      });
     }
+
+    dispatch({
+      type: "CHANGE_SELECT_SEAT",
+      danhSachGheDangDat: newSelection,
+    });
+
+    dispatch({
+      type: "CHANGE_SELECT_ID_SEAT",
+      danhSachIdGheDangDat: newIdSelection,
+    });
   };
 
-  const getSeatLabel = (label, number) => {
-    return `${label}${String(number).padStart(2, "0")}`;
+  const checkSeatIsBooked = (seatId) => {
+    return infoTicket.some((item) => seatId === item.seat.id);
   };
 
-  const render_seat = (label) => {
+  // Render tất cả ghế, mỗi hàng 12 ghế
+  const renderSeats = () => {
     const rows = [];
-    let numberSeat = 1;
-
-    for (let i = 0; i < 7; i++) {
+    for (let i = 0; i < seats.length; i += 12) {
+      const rowSeats = seats.slice(i, i + 12);
       const row = (
-        <tr key={`${label}-${i}`} className='flex items-center gap-1 justify-between'>
-          {[0, 1, 2].map((offset, idx) => {
-            const seatNumber = numberSeat + offset;
-            const seatLabel = getSeatLabel(label, seatNumber);
-            const isDisabled = chuyenXe.listMaGhe.includes(seatLabel);
-            const isSelected = danhSachGheDangDat.includes(seatLabel);
+        <tr key={`row-${i}`} className='flex items-center gap-2 mb-2'>
+          {rowSeats.map((seat) => {
+            const isBooked = checkSeatIsBooked(seat.id);
+            const isSelected = danhSachGheDangDat.includes(seat.name);
             const overLimit = !isSelected && danhSachGheDangDat.length >= 5;
 
             return (
-              <React.Fragment key={seatLabel}>
-                <SeatCell
-                  seatLabel={seatLabel}
-                  isDisabled={isDisabled || overLimit}
-                  isSelected={isSelected}
-                  onSelect={handleSelectSeat}
-                />
-                {idx !== 2 && <td className='relative w-6' />}
-              </React.Fragment>
+              <SeatCell
+                key={seat.id}
+                seatLabel={seat.name}
+                isDisabled={isBooked || overLimit}
+                isSelected={isSelected}
+                onSelect={() => handleSelectSeat(seat.name, seat.id)}
+              />
             );
           })}
         </tr>
       );
-
-      numberSeat += 3;
       rows.push(row);
     }
 
@@ -75,49 +77,26 @@ export default function SelectSeat() {
     );
   };
 
-  const renderSeatMemoA = useMemo(() => render_seat("A"), [danhSachGheDangDat]);
-  const renderSeatMemoB = useMemo(() => render_seat("B"), [danhSachGheDangDat]);
-
   return (
-    <div className=''>
-      <div className='max-w-md mx-auto'>
-        <div className='mx-auto flex max-w-2xl flex-col px-3 py-1'>
+    <div className='max-w-4xl mx-auto'>
+      <div className='text-center text-lg font-semibold my-4'>Chọn Ghế</div>
 
-          {/* Thong Tin Tang Ghe */}
-          <div className='my-4 flex flex-row px-[8px] gap-[16px] text-center font-medium justify-center'>
-            <div className='flex min-w-[50%] flex-col'>
-              <div className='icon-gray flex w-full justify-center p-2 text-sm'>
-                <span>Bên trái</span>
-              </div>
-              <div className='divide mb-4' />
-              {renderSeatMemoA}
-            </div>
+      {/* Danh sách ghế */}
+      <div className='overflow-x-auto flex justify-center'>{renderSeats()}</div>
 
-            <div className='flex min-w-[50%] flex-col'>
-              <div className='icon-gray flex w-full justify-center p-2 text-sm'>
-                <span>Bên phải</span>
-              </div>
-              <div className='divide mb-4 2lg:hidden' />
-              {renderSeatMemoB}
-            </div>
-          </div>
-
-          {/* Trang Thai */}
-          <div className='flex justify-between text-[13px] font-normal'>
-            <span className='mr-8 flex items-center'>
-              <div className='mr-2 h-4 w-4 rounded bg-[#D5D9DD] border-[#C0C6CC]' />
-              Đã bán
-            </span>
-            <span className='mr-8 flex items-center'>
-              <div className='mr-2 h-4 w-4 rounded bg-[#DEF3FF] border-[#96C5E7]' />
-              Còn trống
-            </span>
-            <span className='flex items-center'>
-              <div className='mr-2 h-4 w-4 rounded bg-[#FDEDE8] border-[#F8BEAB]' />
-              Đang chọn
-            </span>
-          </div>
-
+      {/* Trạng thái ghế */}
+      <div className='mt-5 flex justify-center gap-10 text-sm'>
+        <div className='flex items-center'>
+          <div className='w-4 h-4 rounded bg-[#D5D9DD] border border-[#C0C6CC] mr-2' />
+          Đã bán
+        </div>
+        <div className='flex items-center'>
+          <div className='w-4 h-4 rounded bg-[#DEF3FF] border border-[#96C5E7] mr-2' />
+          Còn trống
+        </div>
+        <div className='flex items-center'>
+          <div className='w-4 h-4 rounded bg-[#FDEDE8] border border-[#F8BEAB] mr-2' />
+          Đang chọn
         </div>
       </div>
     </div>

@@ -1,85 +1,51 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { layThongTinHoaDonAction } from "../redux/actions/QuanLyNguoiDungAction";
 
 const BookingHistory = () => {
-  const data = [
-    {
-      id: 4,
-      tenPhim: "Doctor Strange in the Multiverse of Madness",
-      thoiLuong: 120,
-      ngayDat: "7/21/2025, 11:25 PM",
-      tenRap: "CGV - Aeon Tân Phú, Rạp 8",
-      maVe: 119576,
-      tenGhe: "06",
-      giaVe: "85.000",
-      tongTien: "85.000",
-    },
-    {
-      id: 3,
-      tenPhim: "Doctor Strange in the Multiverse of Madness",
-      thoiLuong: 120,
-      ngayDat: "7/21/2025, 11:25 PM",
-      tenRap: "CGV - Aeon Tân Phú, Rạp 8",
-      maVe: 119575,
-      tenGhe: "04",
-      giaVe: "85.000",
-      tongTien: "85.000",
-    },
-    {
-      id: 2,
-      tenPhim: "Doctor Strange in the Multiverse of Madness",
-      thoiLuong: 120,
-      ngayDat: "7/14/2025, 07:25 PM",
-      tenRap: "CGV - Aeon Tân Phú, Rạp 9",
-      maVe: 119514,
-      tenGhe: "02, 04",
-      giaVe: "85.000",
-      tongTien: "170.000",
-    },
-    {
-      id: 1,
-      tenPhim: "Doctor Strange in the Multiverse of Madness",
-      thoiLuong: 120,
-      ngayDat: "7/14/2025, 07:25 PM",
-      tenRap: "CGV - Aeon Tân Phú, Rạp 9",
-      maVe: 119513,
-      tenGhe: "01",
-      giaVe: "85.000",
-      tongTien: "85.000",
-    },
-  ];
+  const { thongTinHoaDon } = useSelector(
+    (state) => state.QuanLyNguoiDungReducer
+  );
+  const dispatch = useDispatch();
+
+  console.log("hoa don", thongTinHoaDon);
+
+  useEffect(() => {
+    var action = layThongTinHoaDonAction();
+    dispatch(action);
+  }, []);
 
   return (
-    <div className="overflow-auto mx-4">
-      <table className="min-w-[900px] w-full border border-gray-300 text-sm text-left">
-        <thead className="bg-gray-100 font-semibold">
+    <div className='overflow-auto mx-4'>
+
+      <table className='min-w-[900px] w-full border border-gray-300 text-sm text-left'>
+        <thead className='bg-gray-100 font-semibold'>
           <tr>
-            <th className="px-3 py-2 border">Stt</th>
-            <th className="px-3 py-2 border">Tên phim</th>
-            <th className="px-3 py-2 border">Thời lượng phim</th>
-            <th className="px-3 py-2 border">Ngày đặt</th>
-            <th className="px-3 py-2 border">Tên Rạp</th>
-            <th className="px-3 py-2 border">Mã vé</th>
-            <th className="px-3 py-2 border">Tên ghế</th>
-            <th className="px-3 py-2 border">Giá vé(vnđ)</th>
-            <th className="px-3 py-2 border">Tổng tiền</th>
+            <th className='px-3 py-2 border'>Stt</th>
+            <th className='px-3 py-2 border'>Tên Rạp</th>
+            <th className='px-3 py-2 border'>Tên phim</th>
+            <th className='px-3 py-2 border'>Thời gian đặt</th>
+            <th className='px-3 py-2 border'>Tổng tiền</th>
+            <th className='px-3 py-2 border'>Danh sách vé</th>
           </tr>
         </thead>
         <tbody>
-          {data.map((item) => (
+          {thongTinHoaDon?.map((item, index) => (
             <tr key={item.id}>
-              <td className="px-3 py-2 border">{item.id}</td>
-              <td className="px-3 py-2 border">{item.tenPhim}</td>
-              <td className="px-3 py-2 border">{item.thoiLuong}</td>
-              <td className="px-3 py-2 border">{item.ngayDat}</td>
-              <td className="px-3 py-2 border">{item.tenRap}</td>
-              <td className="px-3 py-2 border">{item.maVe}</td>
-              <td className="px-3 py-2 border">{item.tenGhe}</td>
-              <td className="px-3 py-2 border">{item.giaVe}</td>
-              <td className="px-3 py-2 border">{item.tongTien}</td>
+              <td className='px-3 py-2 border'>{index}</td>
+              <td className='px-3 py-2 border'>{item.showtime.cinemaName}</td>
+              <td className='px-3 py-2 border'>{item.showtime.movie.title}</td>
+              <td className='px-3 py-2 border'>{item.paidAt}</td>
+              <td className='px-3 py-2 border'>{item.totalAmount}</td>
+              <td className='px-3 py-2 border'>
+                {item.tickets.map((ticket) => ticket.seatName).join(", ")}
+              </td>
             </tr>
           ))}
         </tbody>
       </table>
+
+
     </div>
   );
 };

@@ -1,23 +1,52 @@
 import React, { useEffect } from "react";
 
 import style from "../assets/styles/Checkout.module.css";
-import zalo from "../assets/images/zalo.jpg";
+// import zalo from "../assets/images/zalo.jpg";
 
 import { useDispatch, useSelector } from "react-redux";
-import { layChiTietPhongVeAction } from "../redux/actions/QuanLyDatVeActions";
+import { datVeAction, layChiTietPhongVeAction, layThongTinTicketAction } from "../redux/actions/QuanLyDatVeActions";
 import SelectSeat from "../components/RenderSeat/render_seat";
 
+import moment from "moment";
+import {
+  layThongTinNguoiDungAction,
+} from "../redux/actions/QuanLyNguoiDungAction";
+import { ThongTinDatVe } from "../_core/models/ThongTinDatVe";
+
 export default function Checkout(props) {
-  const { chiTietPhongVe, danhSachGheDangDat } = useSelector(
+  const { infoShowtime, danhSachGheDangDat, danhSachIdGheDangDat, infoTicket } = useSelector(
     (state) => state.QuanLyDatVeReducer
   );
 
-  console.log(chiTietPhongVe);
+  const { thongTinNguoiDung } = useSelector(
+    (state) => state.QuanLyNguoiDungReducer
+  );
+
+  console.log("danh sach ghe da dat", infoTicket)
+
   const dispatch = useDispatch();
+
   useEffect(() => {
     var action = layChiTietPhongVeAction(props.match.params.id);
     dispatch(action);
+
+    dispatch(layThongTinNguoiDungAction());
+
+    dispatch(layThongTinTicketAction(Number(props.match.params.id)))
   }, []);
+
+
+  const handleCheckout = ()=>{
+    var thongTinDatVe = {
+      showtimeId: Number(props.match.params.id), 
+      seatIds: danhSachIdGheDangDat}
+
+      console.log(danhSachIdGheDangDat)
+
+    console.log(thongTinDatVe)
+
+    dispatch(datVeAction(thongTinDatVe))
+  }
 
   return (
     <div className='container min-h-screen' style={{ minHeight: "100vh" }}>
@@ -42,17 +71,25 @@ export default function Checkout(props) {
         </div>
 
         {/* Cột bên phải */}
-        <div className='col-span-3 flex flex-col' style={{height: "100vh"}}>
+        <div className='col-span-3 flex flex-col' style={{ height: "100vh" }}>
           <div>
             {/* Giá tiền */}
             <h3 className='text-green-400 text-center text-2xl'>
-              {danhSachGheDangDat.length * 1}đ
+              {danhSachGheDangDat.length * infoShowtime.ticketPrice}đ
             </h3>
 
             {/* Thông tin phim */}
-            <h3 className='text-xl mt-5'>Lật mặt 48h</h3>
-            <p>Địa điểm: BHD Star – Vincom 3/2</p>
-            <p>Ngày chiếu: 25/04/2021 – 12:05 RAP 5</p>
+            <h3 className='text-xl mt-5'>{infoShowtime?.movie?.title}</h3>
+            <p>
+              {infoShowtime.cinemaName} - {infoShowtime.roomName}
+            </p>
+            <p>
+              Ngày chiếu: {moment(infoShowtime.startTime).format("DD.MM.YYYY")}{" "}
+            </p>
+            <p>
+              Thời gian: {moment(infoShowtime.startTime).format("hh:mm A")} -{" "}
+              {moment(infoShowtime.endTime).format("hh:mm A")}{" "}
+            </p>
             <hr />
 
             {/* Ghế ngồi */}
@@ -64,7 +101,7 @@ export default function Checkout(props) {
               </div>
               <div className='text-right col-span-1'>
                 <span className='text-green-800 text-lg'>
-                  {danhSachGheDangDat.length * 1}đ
+                  {danhSachGheDangDat.length * infoShowtime.ticketPrice}đ
                 </span>
               </div>
             </div>
@@ -73,19 +110,20 @@ export default function Checkout(props) {
             <div className='my-5'>
               <span>Email:</span>
               <br />
-              {/* {userLogin.email} */}
+              {thongTinNguoiDung.email}
             </div>
 
             {/* Số điện thoại */}
             <div className='my-5'>
               <span>Phone:</span>
               <br />
-              {/* {userLogin.soDienThoai} */}
+              {thongTinNguoiDung.phone}
             </div>
 
             <hr />
+
             {/* Hình thức thanh toán */}
-            <div className='flex flex-col'>
+            {/* <div className='flex flex-col'>
               <div className='flex items-center'>
                 <input
                   className=''
@@ -117,12 +155,19 @@ export default function Checkout(props) {
                 />
                 <label>Thanh toán qua ZaloPay</label>
               </div>
-            </div>
+            </div> */}
+
           </div>
 
           <hr />
           <div className='mb-0 flex-1 flex flex-col justify-end items-center'>
-            <div className='bg-green-500 text-white w-full text-center py-3 font-bold text-xl'>
+            <div
+              className='bg-green-500 text-white w-full text-center py-3 font-bold text-xl'
+              style={{cursor: "pointer"}}
+              onClick={()=>{
+                handleCheckout()
+              }}
+            >
               Dat Ve
             </div>
           </div>

@@ -1,6 +1,21 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { layThongTinNguoiDungAction } from "../redux/actions/QuanLyNguoiDungAction";
 
 export default function ProfilePage() {
+
+  const {thongTinNguoiDung} = useSelector(state => state.QuanLyNguoiDungReducer)
+ 
+  const dispatch = useDispatch()
+
+
+
+
+  useEffect(()=>{
+    var action = layThongTinNguoiDungAction()
+    dispatch(action)
+  }, [])
+
   return (
     <div className="min-h-screen bg-white px-4 sm:px-10">
       <div className="max-w-5xl mx-auto flex flex-col lg:flex-row gap-8">
@@ -12,7 +27,7 @@ export default function ProfilePage() {
             alt="Avatar"
             className="w-40 h-40 rounded-full object-cover border-4 border-white shadow-md"
           />
-          <h2 className="mt-4 text-xl font-semibold">KienDzaii</h2>
+          <h2 className="mt-4 text-xl font-semibold">{thongTinNguoiDung.username}</h2>
 
           <div className="mt-6 w-full bg-gray-50 rounded border">
             <div className="p-3 border-b text-sm font-medium text-gray-600">Hoạt động</div>
@@ -38,13 +53,13 @@ export default function ProfilePage() {
               <label className="block text-sm font-medium text-gray-700">Tài khoản</label>
               <input
                 type="text"
-                value="KienDzaii"
+                value={thongTinNguoiDung.username}
                 disabled
                 className="w-full mt-1 px-3 py-2 border rounded bg-gray-100 cursor-not-allowed"
               />
             </div>
 
-            <div>
+            {/* <div>
               <label className="block text-sm font-medium text-gray-700">Mật khẩu</label>
               <div className="relative">
                 <input
@@ -55,13 +70,13 @@ export default function ProfilePage() {
                 <span className="absolute inset-y-0 right-3 flex items-center text-gray-500 cursor-pointer">
                 </span>
               </div>
-            </div>
+            </div> */}
 
             <div>
               <label className="block text-sm font-medium text-gray-700">Họ và tên</label>
               <input
                 type="text"
-                value="KienDzaii"
+                value={thongTinNguoiDung.lastName + " " +  thongTinNguoiDung.firstName }
                 className="w-full mt-1 px-3 py-2 border rounded"
               />
             </div>
@@ -70,7 +85,7 @@ export default function ProfilePage() {
               <label className="block text-sm font-medium text-gray-700">Email</label>
               <input
                 type="email"
-                value="KienDzaii@gmail.com"
+                value={thongTinNguoiDung.email}
                 className="w-full mt-1 px-3 py-2 border rounded"
               />
             </div>
@@ -79,7 +94,7 @@ export default function ProfilePage() {
               <label className="block text-sm font-medium text-gray-700">Số điện thoại</label>
               <input
                 type="text"
-                value="1234567890"
+                value={thongTinNguoiDung.phone}
                 className="w-full mt-1 px-3 py-2 border rounded"
               />
             </div>

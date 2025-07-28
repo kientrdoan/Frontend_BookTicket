@@ -1,3 +1,4 @@
+import { DOMAIN, TOKEN } from "../util/settings/config";
 import { baseService } from "./BaseServices";
 
 export class QuanLyNguoiDungService extends baseService {
@@ -14,9 +15,19 @@ export class QuanLyNguoiDungService extends baseService {
     return this.post("/accounts/register", thongTinDangKy);
   };
 
+  // layThongTinNguoiDung = () => {
+  //   return this.post("/api/QuanLyNguoiDung/ThongTinTaiKhoan");
+  // };
+
   layThongTinNguoiDung = () => {
-    return this.post("/api/QuanLyNguoiDung/ThongTinTaiKhoan");
+    return this.get_token("/accounts/customer/profile")
   };
+
+
+  layThongTinHoaDon = () => {
+    return this.get_token("/bookings/my-bookings")
+  }
+
 }
 
 export const quanLyNguoiDungService = new QuanLyNguoiDungService();

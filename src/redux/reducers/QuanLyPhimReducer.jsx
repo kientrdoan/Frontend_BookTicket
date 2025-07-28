@@ -58,6 +58,8 @@ const stateDefault = {
   sapChieu: true,
   arrFilmDefault: [],
 
+  arrFilmByRoom: [],
+
   filmDetail: {},
 
   thongTinPhim: {},
@@ -88,6 +90,12 @@ export const QuanLyPhimReducer = (state = stateDefault, action) => {
 
     case SET_CHI_TIET_PHIM: {
       state.filmDetail = action.filmDetail;
+      return { ...state };
+    }
+
+    case "SET_PHIM_BY_ROOM": {
+      console.log("reducer", action.arrFilmByRoom)
+      state.arrFilmByRoom = action.arrFilmByRoom;
       return { ...state };
     }
 

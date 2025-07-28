@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import HomeMenu from "./Menu/HomeMenu";
 import { useDispatch, useSelector } from "react-redux";
-import Film from "../components/film/Film";
+// import Film from "../components/film/Film";
 import MultipleRowSlick from "../components/RSlick/MultipleRowSlick";
 import { layDanhSachPhimAction } from "../redux/actions/QuanLyPhimAction";
 import { layDanhSachHeThongRapAction } from "../redux/actions/QuanLyRapAction";
@@ -11,16 +11,10 @@ export default function Home() {
   const { arrFilm } = useSelector((state) => state.QuanLyPhimReducer);
   const { heThongRapChieu } = useSelector((state) => state.QuanLyRapReducer);
   
-  console.log("He Thong Rap", heThongRapChieu)
+  // console.log("He Thong Rap", heThongRapChieu)
   // console.log("array film", arrFilm)
 
   const dispatch = useDispatch();
-
-  // const renderFilms = () => {
-  //   return arrFilm.map((film, index) => {
-  //     return <Film key={index}></Film>
-  //   });
-  // };
 
   useEffect(() => {
     const action = layDanhSachPhimAction();
@@ -28,13 +22,8 @@ export default function Home() {
     dispatch(action);
 
     dispatch(layDanhSachHeThongRapAction());
-  }, []);
 
-  // useEffect(()=>{
-  //   // const action = layDanhSachHeThongRapAction()
-  //   // Lay danh sach he thong rap
-  //   // dispatch(layDanhSachHeThongRapAction());
-  // })
+  }, []);
 
   return (
     <div>
@@ -42,9 +31,6 @@ export default function Home() {
       {/* Hien Thi Danh SACH PHIM DANG CHIEU - SAP CHIEU */}
       <section className='text-gray-600 body-font'>
         <div className='container px-5 py-24 mx-auto'>
-          {/* <div class='flex flex-wrap -m-4' style={{justifyContent: 'center'}}>
-            {renderFilms()}
-          </div> */}
           <MultipleRowSlick arrFilm={arrFilm} />
         </div>
       </section>
