@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Route } from "react-router-dom";
 import Header from "./HomeLayout/Header/Header";
-import { NavLink } from "react-router-dom/cjs/react-router-dom.min";
+import { Link } from "react-router-dom";
 
 export const ProfileTemplate = (props) => {
   const { Component, ...restProps } = props;
@@ -15,7 +15,7 @@ export const ProfileTemplate = (props) => {
           <React.Fragment>
             <Header {...propsRoute} />
             <div className='mb-6 border-b pb-2 flex justify-center gap-10 text-sm font-semibold py-[150px]'>
-              <NavLink
+              <Link
                 to='/profile'
                 onClick={() => {
                   setSelect(0);
@@ -25,8 +25,8 @@ export const ProfileTemplate = (props) => {
                 }`}
               >
                 THÔNG TIN TÀI KHOẢN
-              </NavLink>
-               <NavLink
+              </Link>
+               <Link
                 to='/history'
                 onClick={() => {
                   setSelect(1);
@@ -36,7 +36,7 @@ export const ProfileTemplate = (props) => {
                 }`}
               >
                 LỊCH SỬ ĐẶT VÉ
-              </NavLink>
+              </Link>
             </div>
             <Component {...propsRoute} />
           </React.Fragment>

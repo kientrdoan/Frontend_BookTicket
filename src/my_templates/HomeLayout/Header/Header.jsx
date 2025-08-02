@@ -1,18 +1,19 @@
-import React, { Fragment } from 'react'
+"use client"
+import React, { Fragment } from "react";
 import { Select } from "antd";
 import { useSelector } from "react-redux";
-import { Redirect, NavLink } from "react-router-dom";
-import { TOKEN } from "../../../../util/settings/config";
 import _ from "lodash";
-import { USER_LOGIN } from "../../../utils/settings/config";
-import { useHistory } from 'react-router-dom';
+import { TOKEN, USER_LOGIN } from "../../../utils/settings/config";
+import { useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const { Option } = Select;
 
 export default function Header() {
   const history = useHistory();
-  const { userLogin } = useSelector((state) => state.QuanLyNguoiDungReducer);
-  console.log("userLogin", userLogin)
+  const { userLogin, thongTinDangNhap } = useSelector((state) => state.QuanLyNguoiDungReducer);
+
+  console.log("userLogin", thongTinDangNhap);
 
   const renderLogin = () => {
     if (_.isEmpty(userLogin)) {
@@ -20,7 +21,7 @@ export default function Header() {
         <Fragment>
           <button
             onClick={() => {
-              history.push('/login');
+              history.push("/login");
             }}
             // to="/login"
             className='self-center px-8 py-3 rounded'
@@ -48,7 +49,7 @@ export default function Header() {
           }}
           className='self-center px-8 py-3 rounded'
         >
-        UserName ! {userLogin.userName}
+          UserName ! {userLogin.userName}
         </button>
         <button
           onClick={() => {
@@ -66,55 +67,58 @@ export default function Header() {
   };
 
   return (
-    <header style={{backgroundColor: "#797979ff"}} className='p-4 bg-coolGray-100 text-coolGray-800 bg-opacity-40 bg-black text-white fixed w-full z-10'>
+    <header
+      style={{ backgroundColor: "#797979ff" }}
+      className='p-4 bg-coolGray-100 text-coolGray-800 bg-opacity-40 bg-black text-white fixed w-full z-10'
+    >
       <div className='container flex justify-between h-16 mx-auto'>
-        <NavLink
+        <Link
           to='/'
           aria-label='Back to homepage'
           className='flex items-center p-2'
         >
           <h1>HHK</h1>
-          {/* <img src="https://cyberlearn.vn/wp-content/uploads/2020/03/cyberlearn-min-new-opt2.png" alt="cyberlearn.vn" /> */}
-        </NavLink>
+        </Link>
+
         <ul className='items-stretch hidden space-x-3 lg:flex'>
           <li className='flex'>
-            <NavLink
+            <Link
               to='/'
-              className='flex items-center -mb-0.5 border-b-2 px-4 border-transparent text-violet-600 border-violet-600 text-white'
-              // activeClassName='border-b-2 border-white'
+              aria-label='Back to homepage'
+              className='flex items-center p-2'
             >
-              Home
-            </NavLink>
+              Trang chủ
+            </Link>
           </li>
 
           <li className='flex'>
-            <NavLink
+            <Link
               to='/'
               className='flex items-center -mb-0.5 border-b-2 px-4 border-transparent text-white'
               // activeClassName='border-b-2 border-white'
             >
               Lịch chiếu
-            </NavLink>
+            </Link>
           </li>
 
           <li className='flex'>
-            <NavLink
+            <Link
               to='/'
               className='flex items-center -mb-0.5 border-b-2 px-4 border-transparent text-white'
               // activeClassName='border-b-2 border-white'
             >
               Cụm rạp
-            </NavLink>
+            </Link>
           </li>
 
           {/* <li className='flex'>
-            <NavLink
+            <Link
               to='/news'
               className='flex items-center -mb-0.5 border-b-2 px-4 border-transparent text-white'
               activeClassName='border-b-2 border-white'
             >
               News
-            </NavLink>
+            </Link>
           </li> */}
         </ul>
 

@@ -3,9 +3,9 @@ import { useFormik } from "formik";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { NavLink } from "react-router-dom";
 import { dangNhapAction, layThongTinNguoiDungAction } from "../redux/actions/QuanLyNguoiDungAction";
-import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import { useHistory } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 
 export default function Login(props) {
@@ -90,12 +90,12 @@ export default function Login(props) {
           </div>
           <div className='mt-12 text-sm font-display font-semibold text-gray-700 text-center'>
             Bạn chưa có tài khoản ?{" "}
-            <NavLink
+            <Link
               to='register'
               className='cursor-pointer text-indigo-600 hover:text-indigo-800'
             >
               Đăng ký
-            </NavLink>
+            </Link>
           </div>
         </div>
       </div>

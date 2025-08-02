@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 
 import style from "../assets/styles/Checkout.module.css";
-// import zalo from "../assets/images/zalo.jpg";
 
 import { useDispatch, useSelector } from "react-redux";
 import { datVeAction, layChiTietPhongVeAction, layThongTinTicketAction } from "../redux/actions/QuanLyDatVeActions";
@@ -11,7 +10,6 @@ import moment from "moment";
 import {
   layThongTinNguoiDungAction,
 } from "../redux/actions/QuanLyNguoiDungAction";
-import { ThongTinDatVe } from "../_core/models/ThongTinDatVe";
 
 export default function Checkout(props) {
   const { infoShowtime, danhSachGheDangDat, danhSachIdGheDangDat, infoTicket } = useSelector(

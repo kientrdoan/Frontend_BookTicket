@@ -1,22 +1,19 @@
-import "./App.css";
-
 //Routing
 import { BrowserRouter, Router, Switch } from "react-router-dom";
-import { HomeTemplate } from "./templates/HomeTemplate";
 import Home from "./pages/HomePage";
 import Contact from "./pages/Contact";
 import Detail from "./pages/Detail";
 import Checkout from "./pages/Checkout";
-import CheckoutTemplate from "./templates/CheckoutTemplate";
-import { Route } from "react-router-dom/cjs/react-router-dom.min";
 import Login from "./pages/Login";
-import { UserTemplate } from "./templates/UserTemplate";
 // import { createBrowserHistory } from "history";
 import Profile from "./pages/Profile";
-import { ProfileTemplate } from "./templates/ProfileTemplate";
 import BookingHistory from "./pages/history";
 import Register from "./pages/Register";
 import PaymentResult from "./pages/PaymentResult";
+import { HomeTemplate } from "./my_templates/HomeTemplate";
+import { UserTemplate } from "./my_templates/UserTemplate";
+import { ProfileTemplate } from "./my_templates/ProfileTemplate";
+import CheckoutTemplate from "./my_templates/CheckoutTemplate";
 // import News from './pages/News';
 
 // export const history = createBrowserHistory();

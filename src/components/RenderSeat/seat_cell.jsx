@@ -1,10 +1,14 @@
-// SeatCell.js
+"use client";
+
 import React from "react";
-import seat_active from "../../assets/images/seat_active.svg";
-import seat_selecting from "../../assets/images/seat_selecting.svg";
-import seat_disabled from "../../assets/images/seat_disabled.svg";
 
 export default function SeatCell({ seatLabel, isDisabled, isSelected, onSelect }) {
+  const getImageSrc = () => {
+    if (isDisabled) return "/images/seat_disabled.svg";
+    if (isSelected) return "/images/seat_selecting.svg";
+    return "/images/seat_active.svg";
+  };
+
   return (
     <td
       onClick={() => {
@@ -16,16 +20,11 @@ export default function SeatCell({ seatLabel, isDisabled, isSelected, onSelect }
     >
       <img
         width={45}
-        src={
-          isDisabled
-            ? seat_disabled
-            : isSelected
-            ? seat_selecting
-            : seat_active
-        }
-        alt='seat icon'
+        src={getImageSrc()}
+        alt="seat icon"
+        className="select-none"
       />
-      <span className='absolute text-sm font-semibold text-[#A2ABB3] top-[0.55rem]'>
+      <span className="absolute text-sm font-semibold text-[#A2ABB3] top-[0.55rem] pointer-events-none">
         {seatLabel}
       </span>
     </td>

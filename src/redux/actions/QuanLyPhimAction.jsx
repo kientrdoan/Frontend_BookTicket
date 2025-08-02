@@ -31,3 +31,19 @@ export const layDanhSachPhimTheoCinameAndRoomAction = (idRoom) => {
     }
   };
 };
+
+
+export const layDanhSachPhimTheoTitleAction = (title) => {
+  return async (dispath) => {
+    try {
+      const result = await quanLyPhimService.layDanhSachPhimTheoTitle(title);
+      console.log("FILM BY TITLE", result)
+      dispath({
+        type: "SET_PHIM_BY_TITLE",
+        arrFilm: result.data.result,
+      });
+    } catch (error) {
+        console.log(error)
+    }
+  };
+};

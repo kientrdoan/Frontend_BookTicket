@@ -1,5 +1,4 @@
-import { GROUPID } from "../util/settings/config";
-import { baseService } from "./BaseServices";
+import { baseService } from "./baseServices";
 
 export class QuanLyRapService extends baseService {
   constructor() {

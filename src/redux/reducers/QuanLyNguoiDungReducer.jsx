@@ -1,13 +1,16 @@
+'use client'
 
 import { TOKEN, USER_LOGIN } from "../../utils/settings/config";
 import { DANG_NHAP_ACTION, SET_THONG_TIN_HOA_DON, SET_THONG_TIN_NGUOI_DUNG } from "../actions/types/QuanLyNguoiDungType"
 
 
 let user = {};
-if(localStorage.getItem(USER_LOGIN)) {
-    user = JSON.parse(localStorage.getItem(USER_LOGIN));
+if (typeof window !== "undefined") {
+    const userStorage = localStorage.getItem(USER_LOGIN);
+    if (userStorage) {
+        user = JSON.parse(userStorage);
+    }
 }
-
 
 const stateDefault = {
     userLogin: user,

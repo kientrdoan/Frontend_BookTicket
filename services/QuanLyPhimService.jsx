@@ -1,5 +1,4 @@
-import { GROUPID } from "../util/settings/config";
-import { baseService } from "./BaseServices";
+import { baseService } from "./baseServices";
 
 export class QuanLyPhimService extends baseService {
   constructor() {
@@ -19,6 +18,10 @@ export class QuanLyPhimService extends baseService {
 
   layDanhSachPhimTheoCinemaAndRoom = (idRoom) => {
     return this.get(`/movies/room/${idRoom}`);
+  };
+
+  layDanhSachPhimTheoTitle = (title) => {
+    return this.get(`/movies/search?title=${title}`);
   };
 
   // layThongTinPhim = (maPhim) => {

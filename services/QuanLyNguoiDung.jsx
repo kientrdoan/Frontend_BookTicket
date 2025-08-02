@@ -1,5 +1,4 @@
-import { DOMAIN, TOKEN } from "../util/settings/config";
-import { baseService } from "./BaseServices";
+import { baseService } from "./baseServices";
 
 export class QuanLyNguoiDungService extends baseService {
   constructor() {
