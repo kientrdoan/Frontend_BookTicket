@@ -4,6 +4,7 @@ import moment from "moment";
 import { useDispatch, useSelector } from "react-redux";
 import { layThongTinHoaDonAction } from "../redux/actions/QuanLyNguoiDungAction";
 import { DOMAIN, TOKEN } from "../utils/settings/config";
+import { Link } from "react-router-dom";
 
 const BookingHistory = () => {
   const { thongTinHoaDon } = useSelector(
@@ -11,7 +12,7 @@ const BookingHistory = () => {
   );
   const dispatch = useDispatch();
   const [qrData, setQrData] = useState(null);
-  const [showModal, setShowModal] = useState(false);
+  // const [showModal, setShowModal] = useState(false);
 
   console.log("thongTinHoaDon", thongTinHoaDon);
 
@@ -19,27 +20,27 @@ const BookingHistory = () => {
     dispatch(layThongTinHoaDonAction());
   }, []);
 
-  const handleClickTicket = async (ticketId) => {
-    try {
-      const res = await axios.get(`${DOMAIN}/tickets/${ticketId}/qr-code`, {
-        responseType: "blob",
-        headers: {
-          Authorization: "Bearer " + localStorage.getItem(TOKEN),
-        },
-      });
-      const imageUrl = URL.createObjectURL(res.data);
-      setQrData(imageUrl);
-      setShowModal(true);
-    } catch (error) {
-      console.error("Lỗi lấy QR:", error);
-      alert("Không lấy được mã QR");
-    }
-  };
+  // const handleClickTicket = async (ticketId) => {
+  //   try {
+  //     const res = await axios.get(`${DOMAIN}/tickets/${ticketId}/qr-code`, {
+  //       responseType: "blob",
+  //       headers: {
+  //         Authorization: "Bearer " + localStorage.getItem(TOKEN),
+  //       },
+  //     });
+  //     const imageUrl = URL.createObjectURL(res.data);
+  //     setQrData(imageUrl);
+  //     setShowModal(true);
+  //   } catch (error) {
+  //     console.error("Lỗi lấy QR:", error);
+  //     alert("Không lấy được mã QR");
+  //   }
+  // };
 
-  const closeModal = () => {
-    setShowModal(false);
-    setQrData(null);
-  };
+  // const closeModal = () => {
+  //   setShowModal(false);
+  //   setQrData(null);
+  // };
 
   return (
     <div className='overflow-auto mx-4'>
@@ -68,7 +69,7 @@ const BookingHistory = () => {
                 {item.totalAmount.toLocaleString()}₫
               </td>
               <td className='px-3 py-2 border space-x-1'>
-                {item.tickets.map((ticket, idx) => (
+                {/* {item.tickets.map((ticket, idx) => (
                   <button
                     key={idx}
                     onClick={() => handleClickTicket(ticket.id)}
@@ -76,7 +77,11 @@ const BookingHistory = () => {
                   >
                     {ticket.seatName}
                   </button>
-                ))}
+                ))} */}
+
+                <Link to={`/tickets/${item.invoiceId}`}>
+                  Vé của bạn
+                </Link>
               </td>
               {/* <td className='px-3 py-2 border'>
                 <button
@@ -92,7 +97,7 @@ const BookingHistory = () => {
       </table>
 
       {/* QR Code Modal */}
-      {showModal && (
+      {/* {showModal && (
         <div className='fixed mt-20 inset-0 flex items-center justify-center z-50'>
           <div className='bg-white p-4 rounded-lg shadow-lg relative w-72 text-center'>
             <button
@@ -111,8 +116,7 @@ const BookingHistory = () => {
             />
           </div>
         </div>
-      )}
-
+      )} */}
     </div>
   );
 };
