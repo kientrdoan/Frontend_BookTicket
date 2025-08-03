@@ -14,12 +14,12 @@ export class QuanLyNguoiDungService extends baseService {
     return this.post("/accounts/register", thongTinDangKy);
   };
 
-  // layThongTinNguoiDung = () => {
-  //   return this.post("/api/QuanLyNguoiDung/ThongTinTaiKhoan");
-  // };
-
   layThongTinNguoiDung = () => {
     return this.get_token("/accounts/customer/profile")
+  };
+
+  capNhatTinNguoiDung = (thongTin) => {
+    return this.put("/accounts/profile", thongTin)
   };
 
 

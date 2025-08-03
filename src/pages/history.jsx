@@ -1,141 +1,3 @@
-// import React, { useEffect } from "react";
-// import { useDispatch, useSelector } from "react-redux";
-// import { layThongTinHoaDonAction } from "../redux/actions/QuanLyNguoiDungAction";
-
-// // const BookingHistory = () => {
-// //   const { thongTinHoaDon } = useSelector(
-// //     (state) => state.QuanLyNguoiDungReducer
-// //   );
-// //   const dispatch = useDispatch();
-
-// //   console.log("hoa don", thongTinHoaDon);
-
-// //   useEffect(() => {
-// //     var action = layThongTinHoaDonAction();
-// //     dispatch(action);
-// //   }, []);
-
-// //   return (
-// //     <div className='overflow-auto mx-4'>
-
-// //       <table className='min-w-[900px] w-full border border-gray-300 text-sm text-left'>
-// //         <thead className='bg-gray-100 font-semibold'>
-// //           <tr>
-// //             <th className='px-3 py-2 border'>Stt</th>
-// //             <th className='px-3 py-2 border'>Tên Rạp</th>
-// //             <th className='px-3 py-2 border'>Tên phim</th>
-// //             <th className='px-3 py-2 border'>Thời gian đặt</th>
-// //             <th className='px-3 py-2 border'>Tổng tiền</th>
-// //             <th className='px-3 py-2 border'>Danh sách vé</th>
-// //           </tr>
-// //         </thead>
-// //         <tbody>
-// //           {thongTinHoaDon?.map((item, index) => (
-// //             <tr key={item.id}>
-// //               <td className='px-3 py-2 border'>{index}</td>
-// //               <td className='px-3 py-2 border'>{item.showtime.cinemaName}</td>
-// //               <td className='px-3 py-2 border'>{item.showtime.movie.title}</td>
-// //               <td className='px-3 py-2 border'>{item.paidAt}</td>
-// //               <td className='px-3 py-2 border'>{item.totalAmount}</td>
-// //               <td className='px-3 py-2 border'>
-// //                 {item.tickets.map((ticket) => ticket.seatName).join(", ")}
-// //               </td>
-// //             </tr>
-// //           ))}
-// //         </tbody>
-// //       </table>
-
-// //     </div>
-// //   );
-// // };
-
-// export default BookingHistory;
-
-// import React, { useEffect, useState } from "react";
-// import axios from "axios";
-// import moment from "moment";
-// import { useDispatch, useSelector } from "react-redux";
-// import { layThongTinHoaDonAction } from "../redux/actions/QuanLyNguoiDungAction";
-// import { DOMAIN, TOKEN } from "../utils/settings/config";
-
-// const BookingHistory = () => {
-//   const { thongTinHoaDon } = useSelector(
-//     (state) => state.QuanLyNguoiDungReducer
-//   );
-//   const dispatch = useDispatch();
-//   const [qrData, setQrData] = useState(null);
-
-//   useEffect(() => {
-//     dispatch(layThongTinHoaDonAction());
-//   }, []);
-
-//   const handleClickTicket = async (invoiceId) => {
-//     try {
-//       const res = await axios.get(`${DOMAIN}/tickets/${46}/qr-code`, {
-//          responseType: "blob",
-//         headers: {
-//           Authorization: "Bearer " + localStorage.getItem(TOKEN),
-//         },
-//       });
-//       const imageUrl = URL.createObjectURL(res.data);
-//       setQrData(imageUrl);
-//     } catch (error) {
-//       console.error("Lỗi lấy QR:", error);
-//       alert("Không lấy được mã QR");
-//     }
-//   };
-
-//   return (
-//     <div className='overflow-auto mx-4'>
-//       <table className='min-w-[900px] w-full border border-gray-300 text-sm text-left'>
-//         <thead className='bg-gray-100 font-semibold'>
-//           <tr>
-//             <th className='px-3 py-2 border'>Stt</th>
-//             <th className='px-3 py-2 border'>Tên Rạp</th>
-//             <th className='px-3 py-2 border'>Tên phim</th>
-//             <th className='px-3 py-2 border'>Thời gian đặt</th>
-//             <th className='px-3 py-2 border'>Tổng tiền</th>
-//             <th className='px-3 py-2 border'>Danh sách vé</th>
-//             <th className='px-3 py-2 border'>Xem mã QR</th>
-//           </tr>
-//         </thead>
-//         <tbody>
-//           {thongTinHoaDon?.map((item, index) => (
-//             <tr key={item.id}>
-//               <td className='px-3 py-2 border'>{index + 1}</td>
-//               <td className='px-3 py-2 border'>{item.showtime.cinemaName}</td>
-//               <td className='px-3 py-2 border'>{item.showtime.movie.title}</td>
-//               <td className='px-3 py-2 border'>
-//                 {moment(item.paidAt).format("DD/MM/YYYY HH:mm")}
-//               </td>
-//               <td className='px-3 py-2 border'>
-//                 {item.totalAmount.toLocaleString()}₫
-//               </td>
-//               <td className='px-3 py-2 border'>
-//                 {item.tickets.map((ticket) => ticket.seatName).join(", ")}
-//               </td>
-//               <td className='px-3 py-2 border'>
-//                 <button
-//                   className='text-blue-600 underline'
-//                   onClick={() => handleClickTicket(item.id)}
-//                 >
-//                   Xem QR
-//                 </button>
-//               </td>
-//             </tr>
-//           ))}
-//         </tbody>
-//       </table>
-
-//       {qrData && (
-//         <div className='mt-4 flex justify-center'>
-//           <img src={qrData} alt='QR Code' />
-//         </div>
-//       )}
-//     </div>
-//   );
-// };
-
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import moment from "moment";
@@ -150,6 +12,8 @@ const BookingHistory = () => {
   const dispatch = useDispatch();
   const [qrData, setQrData] = useState(null);
   const [showModal, setShowModal] = useState(false);
+
+  console.log("thongTinHoaDon", thongTinHoaDon);
 
   useEffect(() => {
     dispatch(layThongTinHoaDonAction());
@@ -187,7 +51,7 @@ const BookingHistory = () => {
             <th className='px-3 py-2 border'>Tên phim</th>
             <th className='px-3 py-2 border'>Thời gian đặt</th>
             <th className='px-3 py-2 border'>Tổng tiền</th>
-            <th className='px-3 py-2 border'>Danh sách vé</th>
+            <th className='px-3 py-2 border'>Danh sách Vé</th>
             {/* <th className='px-3 py-2 border'>Xem mã QR</th> */}
           </tr>
         </thead>
@@ -248,6 +112,7 @@ const BookingHistory = () => {
           </div>
         </div>
       )}
+
     </div>
   );
 };

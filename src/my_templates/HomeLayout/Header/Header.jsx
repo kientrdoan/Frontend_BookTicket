@@ -11,9 +11,9 @@ const { Option } = Select;
 
 export default function Header() {
   const history = useHistory();
-  const { userLogin, thongTinDangNhap } = useSelector((state) => state.QuanLyNguoiDungReducer);
+  const { userLogin, thongTinNguoiDung } = useSelector((state) => state.QuanLyNguoiDungReducer);
 
-  console.log("userLogin", thongTinDangNhap);
+  console.log("userLogin", thongTinNguoiDung);
 
   const renderLogin = () => {
     if (_.isEmpty(userLogin)) {
@@ -49,7 +49,7 @@ export default function Header() {
           }}
           className='self-center px-8 py-3 rounded'
         >
-          UserName ! {userLogin.userName}
+           {thongTinNguoiDung.lastName} {thongTinNguoiDung.firstName}
         </button>
         <button
           onClick={() => {

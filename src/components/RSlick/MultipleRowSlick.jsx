@@ -43,24 +43,25 @@ const MultipleRowSlick = (props) => {
 
   const settings = {
     className: "center variable-width",
-    // centerMode: true,
-    infinite: true,
-    // centerPadding: "60px",
-    slidesToShow: 4,
+    infinite: props.arrFilm.length > 4,
+    slidesToShow: props.arrFilm.length >= 4 ? 4 : props.arrFilm.length, // hiển thị đúng số lượng film hiện có
     slidesPerRow: 1,
     speed: 500,
-    rows: 2,
+    rows: props.arrFilm.length > 1 ? 2 : 1, // nếu chỉ có 1 film thì chỉ hiển thị 1 dòng
     variableWidth: false,
-    nextArrow: <SampleNextArrow />,
-    prevArrow: <SamplePrevArrow />,
+    nextArrow: props.arrFilm.length > 4 ? <SampleNextArrow /> : null,
+    prevArrow: props.arrFilm.length > 4 ? <SamplePrevArrow /> : null,
   };
 
   return (
     <div className='max-w-7xl mx-auto px-4'>
-      {/* slick slider */}
-      <Slider {...settings}>
-        {renderFilms()}
-      </Slider>
+      {props.arrFilm.length > 0 ? (
+        <Slider {...settings}>{renderFilms()}</Slider>
+      ) : (
+        <div className='text-center text-gray-500 py-10 text-lg'>
+          Không có kết quả tương ứng.
+        </div>
+      )}
     </div>
   );
 };

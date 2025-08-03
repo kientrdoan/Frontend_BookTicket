@@ -14,13 +14,13 @@ export const ProfileTemplate = (props) => {
         return (
           <React.Fragment>
             <Header {...propsRoute} />
-            <div className='mb-6 border-b pb-2 flex justify-center gap-10 text-sm font-semibold py-[150px]'>
+            <div className='mb-6 border-b pb-2 flex justify-center gap-10 text-sm font-semibold py-[125px]'>
               <Link
                 to='/profile'
                 onClick={() => {
                   setSelect(0);
                 }}
-                className={`cursor-pointer ${
+                className={`cursor-pointer py-1 ${
                   select === 0 ? "bg-red-500" : "bg-gray-200"
                 }`}
               >
@@ -31,7 +31,7 @@ export const ProfileTemplate = (props) => {
                 onClick={() => {
                   setSelect(1);
                 }}
-                className={`cursor-pointer ${
+                className={`cursor-pointer py-1 ${
                   select === 1 ? "bg-red-500" : "bg-gray-200"
                 }`}
               >

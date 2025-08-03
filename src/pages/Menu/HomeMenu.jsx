@@ -43,7 +43,7 @@ const HomeMenu = ({ heThongRapChieu }) => {
               if (firstRoom?.id) {
                 dispatch(layDanhSachPhimTheoCinameAndRoomAction(firstRoom.id));
               }
-              setActiveCinemaKey(String(cinemaIndex));  
+              setActiveCinemaKey(String(cinemaIndex));
               setActiveRoomKey("0");
             }}
           >
@@ -53,7 +53,9 @@ const HomeMenu = ({ heThongRapChieu }) => {
       >
         <Tabs
           tabPosition={tabPosition}
-          activeKey={activeCinemaKey === String(cinemaIndex) ? activeRoomKey : "0"}
+          activeKey={
+            activeCinemaKey === String(cinemaIndex) ? activeRoomKey : "0"
+          }
           onChange={(roomKey) => {
             setActiveRoomKey(roomKey);
             const selectedRoom = heThongRap.rooms?.[roomKey];
@@ -66,42 +68,50 @@ const HomeMenu = ({ heThongRapChieu }) => {
             <TabPane
               tab={
                 <div style={{ width: "300px", display: "flex" }}>
-                  <div className="text-left ml-2">{room.name}</div>
+                  <div className='text-left ml-2'>{room.name}</div>
                 </div>
               }
               key={String(roomIdx)}
             >
-              {uniqueFilms.map((phim, phimIdx) => (
-                <Fragment key={phimIdx}>
-                  <div className="my-5">
-                    <div style={{ display: "flex" }}>
-                      <img
-                        style={{ height: 75, width: 75 }}
-                        src={phim.poster}
-                        alt={phim.title}
-                        onError={(e) => {
-                          e.target.onerror = null;
-                          e.target.src = "https://picsum.photos/75/75";
-                        }}
-                      />
-                      <div
-                        className="ml-2 text-blue-500 cursor-pointer hover:underline"
-                        onClick={() => {
-                          const userLogin = localStorage.getItem(USER_LOGIN);
-                          if (userLogin) {
-                            history.push(`/detail/${phim.id}`);
-                          } else {
-                            history.push("/login"); // hoặc "/dangnhap" tùy theo app
-                          }
-                        }}
-                      >
-                        {phim.title}
+              <div
+                style={{
+                  maxHeight: "300px",
+                  overflowY: "auto",
+                  paddingRight: "8px",
+                }}
+              >
+                {uniqueFilms.map((phim, phimIdx) => (
+                  <Fragment key={phimIdx}>
+                    <div className='my-5'>
+                      <div style={{ display: "flex" }}>
+                        <img
+                          style={{ height: 75, width: 75 }}
+                          src={phim.poster}
+                          alt={phim.title}
+                          onError={(e) => {
+                            e.target.onerror = null;
+                            e.target.src = "https://picsum.photos/75/75";
+                          }}
+                        />
+                        <div
+                          className='ml-2 text-blue-500 cursor-pointer hover:underline'
+                          onClick={() => {
+                            const userLogin = localStorage.getItem(USER_LOGIN);
+                            if (userLogin) {
+                              history.push(`/detail/${phim.id}`);
+                            } else {
+                              history.push("/login");
+                            }
+                          }}
+                        >
+                          {phim.title}
+                        </div>
                       </div>
                     </div>
-                  </div>
-                  <hr />
-                </Fragment>
-              ))}
+                    <hr />
+                  </Fragment>
+                ))}
+              </div>
             </TabPane>
           ))}
         </Tabs>

@@ -21,7 +21,7 @@ export default function Film_Flip({ phim }) {
     if (userLogin) {
       history.push(`/detail/${phim.id}`);
     } else {
-      history.push("/login"); // hoặc "/dangnhap"
+      history.push("/login");
     }
   };
 
