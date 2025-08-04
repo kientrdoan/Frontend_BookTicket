@@ -44,13 +44,14 @@ const MultipleRowSlick = (props) => {
   const settings = {
     className: "center variable-width",
     infinite: props.arrFilm.length > 4,
-    slidesToShow: props.arrFilm.length >= 4 ? 4 : props.arrFilm.length, // hiển thị đúng số lượng film hiện có
+    slidesToShow: props.arrFilm.length >= 4 ? 4 : props.arrFilm.length, 
     slidesPerRow: 1,
     speed: 500,
-    rows: props.arrFilm.length > 1 ? 2 : 1, // nếu chỉ có 1 film thì chỉ hiển thị 1 dòng
+    rows: props.arrFilm.length > 1 ? 2 : 1, 
     variableWidth: false,
-    nextArrow: props.arrFilm.length > 4 ? <SampleNextArrow /> : null,
-    prevArrow: props.arrFilm.length > 4 ? <SamplePrevArrow /> : null,
+
+    nextArrow: <SampleNextArrow />,
+    prevArrow: <SamplePrevArrow />,
   };
 
   return (

@@ -8,7 +8,7 @@ export const layDanhSachPhimAction = () => {
       // console.log(result)
       dispath({
         type: SET_DANH_SACH_PHIM,
-        arrFilm: result.data.result,
+        arrFilm: result.data.result.content,
       });
     } catch (error) {
         console.log(error)

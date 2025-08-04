@@ -3,7 +3,10 @@ import React, { useEffect, useState } from "react";
 import HomeMenu from "./Menu/HomeMenu";
 import { useDispatch, useSelector } from "react-redux";
 import MultipleRowSlick from "../components/RSlick/MultipleRowSlick";
-import { layDanhSachPhimAction, layDanhSachPhimTheoTitleAction } from "../redux/actions/QuanLyPhimAction";
+import {
+  layDanhSachPhimAction,
+  layDanhSachPhimTheoTitleAction,
+} from "../redux/actions/QuanLyPhimAction";
 import { layDanhSachHeThongRapAction } from "../redux/actions/QuanLyRapAction";
 import HomeCarousel from "@/my_templates/HomeLayout/Carousel/HomeCarousel";
 
@@ -11,6 +14,9 @@ export default function Home() {
   const dispatch = useDispatch();
   const { arrFilm } = useSelector((state) => state.QuanLyPhimReducer);
   const { heThongRapChieu } = useSelector((state) => state.QuanLyRapReducer);
+  const [page, setPage] = useState(0);
+
+  console.log("heThongRapChieu", heThongRapChieu);
 
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -34,26 +40,47 @@ export default function Home() {
       <HomeCarousel />
 
       {/* Search bar + phim */}
-      <section className="text-gray-600 body-font" id="lich-chieu">
-        <div className="container px-5 pt-10 pb-24 mx-auto">
+      <section className='text-gray-600 body-font' id='lich-chieu'>
+        <div className='container px-5 pt-10 pb-24 mx-auto'>
           {/* Thanh tìm kiếm */}
-          <div className="mb-10 flex justify-center">
+          <div className='mb-10 flex justify-center gap-x-4 flex-wrap'>
+            {/* Thanh tìm kiếm */}
             <input
-              type="text"
-              placeholder="Tìm phim theo tên..."
+              type='text'
+              placeholder='Tìm phim theo tên...'
               value={searchTerm}
               onChange={handleSearchChange}
-              className="w-full max-w-lg px-5 py-3 border border-gray-300 rounded-full shadow-md focus:outline-none focus:ring-2 focus:ring-indigo-500 text-lg"
+              className='w-full max-w-md px-5 py-3 border border-gray-300 rounded-full shadow-md focus:outline-none focus:ring-2 focus:ring-indigo-500 text-lg'
             />
+
+            {/* Select chọn rạp */}
+            <select
+              className='w-full max-w-xs px-5 py-3 border border-gray-300 rounded-full shadow-md focus:outline-none focus:ring-2 focus:ring-indigo-500 text-lg'
+              defaultValue=''
+              onChange={(e) => {
+                const id = e.target.value;
+                // Có thể dispatch lọc theo rạp ở đây nếu muốn
+                console.log("Selected rạp:", id);
+              }}
+            >
+              <option value='' disabled>
+                Chọn rạp phim...
+              </option>
+              {heThongRapChieu?.map((rap) => (
+                <option key={rap.id} value={rap.id}>
+                  {rap.name}
+                </option>
+              ))}
+            </select>
           </div>
 
           {/* Danh sách phim */}
-          <MultipleRowSlick arrFilm={arrFilm} />
+          <MultipleRowSlick arrFilm={arrFilm} setPage={setPage} page={page}/>
         </div>
       </section>
 
       {/* Rạp phim */}
-      <div className="mx-36" id="cum-rap">
+      <div className='mx-36' id='cum-rap'>
         <HomeMenu heThongRapChieu={heThongRapChieu} />
       </div>
     </div>
