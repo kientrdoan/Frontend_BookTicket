@@ -91,7 +91,7 @@ export default function Ticket() {
                     🎫 Vé #{ticket.id} - {hoaDon.showtime?.id}
                   </h2>
                   <span className='text-sm text-gray-500'>
-                    Ghế {ticket.seatId}
+                    Ghế {ticket.seatName}
                   </span>
                 </div>
 

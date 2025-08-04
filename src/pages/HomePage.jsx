@@ -16,12 +16,17 @@ export default function Home() {
   const { heThongRapChieu } = useSelector((state) => state.QuanLyRapReducer);
   const [page, setPage] = useState(0);
 
+  console.log("arrFilm", arrFilm);
+
   console.log("heThongRapChieu", heThongRapChieu);
 
   const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
-    dispatch(layDanhSachPhimAction());
+    dispatch(layDanhSachPhimAction(page));
+  }, [page]);
+
+  useEffect(() => {
     dispatch(layDanhSachHeThongRapAction());
   }, []);
 
@@ -75,7 +80,7 @@ export default function Home() {
           </div>
 
           {/* Danh sách phim */}
-          <MultipleRowSlick arrFilm={arrFilm} setPage={setPage} page={page}/>
+          <MultipleRowSlick arrFilm={arrFilm} setPage={setPage} page={page} totalPage ={(parseInt)(arrFilm.length / 8)}/>
         </div>
       </section>
 

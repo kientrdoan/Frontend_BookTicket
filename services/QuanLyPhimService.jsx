@@ -9,11 +9,11 @@ export class QuanLyPhimService extends baseService {
     return this.get(`/api/QuanLyPhim/LayDanhSachBanner`);
   };
 
-  layDanhSachPhim = () => {
+  layDanhSachPhim = (page) => {
     // if (tenPhim.trim() != "") {
     //   return this.get(`movies&tenPhim=${tenPhim}`);
     // }
-    return this.get(`/movies?page=0&size=8`);
+    return this.get(`/movies?page=${page}&size=8`);
   };
 
   layDanhSachPhimTheoCinemaAndRoom = (idRoom) => {
