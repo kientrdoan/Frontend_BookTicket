@@ -81,7 +81,7 @@ export default function Header() {
     >
       <div className='container flex justify-between h-16 mx-auto'>
         <Link
-          to='/'
+          to="/"
           aria-label='Back to homepage'
           className='flex items-center p-2'
         >
@@ -89,20 +89,20 @@ export default function Header() {
         </Link>
 
         <ul className='items-stretch hidden space-x-3 lg:flex'>
+          {/* <li className='flex'>
+            <a href='#home-carousel' className='flex items-center p-2'>
+              Home
+            </a>
+          </li> */}
           <li className='flex'>
-            <Link to='/' className='flex items-center p-2'>
-              Trang chủ
-            </Link>
-          </li>
-          <li className='flex'>
-            <Link to='/' className='flex items-center px-4 text-white'>
+            <a href='#lich-chieu' className='flex items-center px-4 text-white'>
               Lịch chiếu
-            </Link>
+            </a>
           </li>
           <li className='flex'>
-            <Link to='/' className='flex items-center px-4 text-white'>
+            <a href='#cum-rap' className='flex items-center px-4 text-white'>
               Cụm rạp
-            </Link>
+            </a>
           </li>
         </ul>
 

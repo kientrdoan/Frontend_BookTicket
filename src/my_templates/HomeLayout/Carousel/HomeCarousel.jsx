@@ -42,7 +42,7 @@ export default function HomeCarousel() {
 
     return (
 
-        <Carousel effect="fade" style={{width:'100%',padding:0,margin:0}} >
+        <Carousel effect="fade" style={{width:'100%',padding:0,margin:0}} id='home-carousel'>
             {/* <div>
                 <div style={{ ...contentStyle, backgroundImage: `url(https://picsum.photos/id/1018/1000/600)` }}>
                     <h3>1</h3>

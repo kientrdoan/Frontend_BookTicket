@@ -34,7 +34,7 @@ export default function Home() {
       <HomeCarousel />
 
       {/* Search bar + phim */}
-      <section className="text-gray-600 body-font">
+      <section className="text-gray-600 body-font" id="lich-chieu">
         <div className="container px-5 pt-10 pb-24 mx-auto">
           {/* Thanh tìm kiếm */}
           <div className="mb-10 flex justify-center">
@@ -53,7 +53,7 @@ export default function Home() {
       </section>
 
       {/* Rạp phim */}
-      <div className="mx-36">
+      <div className="mx-36" id="cum-rap">
         <HomeMenu heThongRapChieu={heThongRapChieu} />
       </div>
     </div>
