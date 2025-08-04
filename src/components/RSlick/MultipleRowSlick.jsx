@@ -20,8 +20,6 @@ const MultipleRowSlick = (props) => {
           zIndex: 10,
         }}
         onClick={() => {
-          console.log("props.page", props.page);
-          console.log("props.totalPage", props.totalPage);
           if(props.page < props.totalPage) {
             props.setPage(props.page + 1);
           }// 👉 Tăng trang

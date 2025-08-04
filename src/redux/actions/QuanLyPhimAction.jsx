@@ -33,10 +33,10 @@ export const layDanhSachPhimTheoCinameAndRoomAction = (idRoom) => {
 };
 
 
-export const layDanhSachPhimTheoTitleAction = (title) => {
+export const layDanhSachPhimTheoTitleAction = (title, cinemaId) => {
   return async (dispath) => {
     try {
-      const result = await quanLyPhimService.layDanhSachPhimTheoTitle(title);
+      const result = await quanLyPhimService.layDanhSachPhimTheoTitle(title, cinemaId);
       console.log("FILM BY TITLE", result)
       dispath({
         type: "SET_PHIM_BY_TITLE",

@@ -20,7 +20,6 @@ export default function Checkout(props) {
     (state) => state.QuanLyNguoiDungReducer
   );
 
-  console.log("danh sach ghe da dat", infoTicket)
 
   const dispatch = useDispatch();
 
@@ -38,10 +37,6 @@ export default function Checkout(props) {
     var thongTinDatVe = {
       showtimeId: Number(props.match.params.id), 
       seatIds: danhSachIdGheDangDat}
-
-      console.log(danhSachIdGheDangDat)
-
-    console.log(thongTinDatVe)
 
     dispatch(datVeAction(thongTinDatVe))
   }

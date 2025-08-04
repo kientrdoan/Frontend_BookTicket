@@ -22,8 +22,6 @@ export default function Detail(props) {
   );
   const dispatch = useDispatch();
 
-  console.log("Film Detail:", filmDetail);
-
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const groupedByCinema = lichChieuPhim.reduce((acc, item) => {

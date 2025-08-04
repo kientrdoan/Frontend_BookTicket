@@ -16,8 +16,6 @@ export default function ProfilePage() {
   );
   const [messageApi, contextHolder] = message.useMessage();
 
-  console.log("thongTinNguoiDung", thongTinNguoiDung);
-
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -79,8 +77,6 @@ export default function ProfilePage() {
         dateOfBirth: values.dateOfBirth,
         gender: values.gender,
       };
-
-      console.log("Final Values:", finalValues);
 
       delete finalValues.fullName;
 

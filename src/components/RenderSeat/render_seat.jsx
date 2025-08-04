@@ -9,8 +9,6 @@ export default function SelectSeat() {
 
   const seats = infoShowtime?.room?.seats || [];
 
-  console.log("info ticket", infoTicket);
-
   const handleSelectSeat = (seatLabel, seatId) => {
     const index = danhSachGheDangDat.indexOf(seatLabel);
     const newSelection = [...danhSachGheDangDat];

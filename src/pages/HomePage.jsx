@@ -16,11 +16,8 @@ export default function Home() {
   const { heThongRapChieu } = useSelector((state) => state.QuanLyRapReducer);
   const [page, setPage] = useState(0);
 
-  console.log("arrFilm", arrFilm);
-
-  console.log("heThongRapChieu", heThongRapChieu);
-
   const [searchTerm, setSearchTerm] = useState("");
+  const [cinemaId, setCinemaId] = useState(0);
 
   useEffect(() => {
     dispatch(layDanhSachPhimAction(page));
@@ -32,7 +29,15 @@ export default function Home() {
 
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value);
-    dispatch(layDanhSachPhimTheoTitleAction(e.target.value));
+    dispatch(layDanhSachPhimTheoTitleAction(e.target.value, cinemaId));
+  };
+
+  const handleCinemaChange = (e) => {
+    const id = e.target.value;
+    setCinemaId(id);
+    // alert(`Bạn đã chọn rạp có ID: ${id}`);
+    // Nếu muốn lọc phim theo rạp thì dispatch action lọc tại đây
+    dispatch(layDanhSachPhimTheoTitleAction(searchTerm, id));
   };
 
   // Lọc danh sách phim theo từ khóa
@@ -62,11 +67,7 @@ export default function Home() {
             <select
               className='w-full max-w-xs px-5 py-3 border border-gray-300 rounded-full shadow-md focus:outline-none focus:ring-2 focus:ring-indigo-500 text-lg'
               defaultValue=''
-              onChange={(e) => {
-                const id = e.target.value;
-                // Có thể dispatch lọc theo rạp ở đây nếu muốn
-                console.log("Selected rạp:", id);
-              }}
+              onChange={handleCinemaChange}
             >
               <option value='' disabled>
                 Chọn rạp phim...

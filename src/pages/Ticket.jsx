@@ -20,7 +20,6 @@ export default function Ticket() {
     const fetchHoaDon = async () => {
       try {
         const result = await dispatch(layThongTinChiTietHoaDonAction(invoiceId));
-        console.log("Chi tiết hóa đơn:", result);
         setHoaDon(result);
       } catch (error) {
         console.error("Lỗi lấy chi tiết hóa đơn", error);

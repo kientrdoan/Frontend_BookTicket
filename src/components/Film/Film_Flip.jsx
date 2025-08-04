@@ -17,7 +17,7 @@ export default function Film_Flip({ phim }) {
   const handleDatVe = () => {
     // Kiểm tra user đăng nhập (dùng localStorage, hoặc Redux nếu bạn dùng)
     const userLogin = localStorage.getItem(USER_LOGIN);
-    console.log("state userLogin", userLogin);
+
 
     if (userLogin) {
       history.push(`/detail/${phim.id}`);

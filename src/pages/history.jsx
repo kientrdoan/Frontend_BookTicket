@@ -14,7 +14,6 @@ const BookingHistory = () => {
   const [qrData, setQrData] = useState(null);
   // const [showModal, setShowModal] = useState(false);
 
-  console.log("thongTinHoaDon", thongTinHoaDon);
 
   useEffect(() => {
     dispatch(layThongTinHoaDonAction());
