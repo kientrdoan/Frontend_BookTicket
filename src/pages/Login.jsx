@@ -31,8 +31,7 @@ export default function Login(props) {
       try {
         const action = await dangNhapAction(values, history);
         const result = await dispatch(action);
-
-        // result.payload hoặc tương đương để kiểm tra phản hồi
+        
         if (result?.payload?.success || result?.type?.includes("fulfilled")) {
           messageApi.success("Đăng nhập thành công!");
           dispatch(layThongTinNguoiDungAction());

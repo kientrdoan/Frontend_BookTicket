@@ -13,6 +13,8 @@ export const dangNhapAction = (thongTinDangNhap, history) => {
     try {
       const result = await quanLyNguoiDungService.dangNhap(thongTinDangNhap);
 
+      console.log("result login", result.data.result);
+
       if (result.status === 200) {
         dispatch({
           type: DANG_NHAP_ACTION,
@@ -96,6 +98,21 @@ export const layThongTinHoaDonAction = () => {
           type: SET_THONG_TIN_HOA_DON,
           thongTinHoaDon: result.data.result,
         });
+      }
+
+    } catch (error) {
+      console.log("error", error);
+    }
+  };
+};
+
+
+export const layThongTinChiTietHoaDonAction = (id) => {
+  return async (dispatch) => {
+    try {
+      const result = await quanLyNguoiDungService.layThongTinChiTietHoaDon(id);
+      if (result.status === 200) {
+        return result.data.result;
       }
 
     } catch (error) {

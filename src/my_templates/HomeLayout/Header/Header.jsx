@@ -1,19 +1,37 @@
-"use client"
-import React, { Fragment } from "react";
+"use client";
+import React, { Fragment, useEffect } from "react";
 import { Select } from "antd";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import _ from "lodash";
 import { TOKEN, USER_LOGIN } from "../../../utils/settings/config";
 import { useHistory } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { SET_THONG_TIN_NGUOI_DUNG } from "@/redux/actions/types/QuanLyNguoiDungType";
+import { layThongTinNguoiDungAction } from "@/redux/actions/QuanLyNguoiDungAction";
 
 const { Option } = Select;
 
 export default function Header() {
   const history = useHistory();
-  const { userLogin, thongTinNguoiDung } = useSelector((state) => state.QuanLyNguoiDungReducer);
+  const dispatch = useDispatch();
 
-  console.log("userLogin", thongTinNguoiDung);
+  const { userLogin, thongTinNguoiDung } = useSelector(
+    (state) => state.QuanLyNguoiDungReducer
+  );
+
+  useEffect(() => {
+    var action = layThongTinNguoiDungAction();
+    dispatch(action);
+  }, []);
+
+  useEffect(() => {
+    if (userLogin && userLogin.firstName) {
+      dispatch({
+        type: SET_THONG_TIN_NGUOI_DUNG,
+        thongTinNguoiDung: userLogin,
+      });
+    }
+  }, [dispatch, userLogin]);
 
   const renderLogin = () => {
     if (_.isEmpty(userLogin)) {
@@ -23,33 +41,23 @@ export default function Header() {
             onClick={() => {
               history.push("/login");
             }}
-            // to="/login"
             className='self-center px-8 py-3 rounded'
           >
-            {"signin"}
+            Đăng nhập
           </button>
-          {/* <button
-            onClick={() => {
-              history.push("/register");
-            }}
-            className='self-center px-8 py-3 font-semibold rounded bg-violet-600 text-coolGray-50'
-          >
-            {"register"}
-          </button> */}
         </Fragment>
       );
     }
 
     return (
       <Fragment>
-        {" "}
         <button
           onClick={() => {
             history.push("/profile");
           }}
           className='self-center px-8 py-3 rounded'
         >
-           {thongTinNguoiDung.lastName} {thongTinNguoiDung.firstName}
+          {thongTinNguoiDung.lastName} {thongTinNguoiDung.firstName}
         </button>
         <button
           onClick={() => {
@@ -69,7 +77,7 @@ export default function Header() {
   return (
     <header
       style={{ backgroundColor: "#797979ff" }}
-      className='p-4 bg-coolGray-100 text-coolGray-800 bg-opacity-40 bg-black text-white fixed w-full z-10'
+      className='p-4 bg-opacity-40 bg-black text-white fixed w-full z-10'
     >
       <div className='container flex justify-between h-16 mx-auto'>
         <Link
@@ -82,67 +90,33 @@ export default function Header() {
 
         <ul className='items-stretch hidden space-x-3 lg:flex'>
           <li className='flex'>
-            <Link
-              to='/'
-              aria-label='Back to homepage'
-              className='flex items-center p-2'
-            >
+            <Link to='/' className='flex items-center p-2'>
               Trang chủ
             </Link>
           </li>
-
           <li className='flex'>
-            <Link
-              to='/'
-              className='flex items-center -mb-0.5 border-b-2 px-4 border-transparent text-white'
-              // activeClassName='border-b-2 border-white'
-            >
+            <Link to='/' className='flex items-center px-4 text-white'>
               Lịch chiếu
             </Link>
           </li>
-
           <li className='flex'>
-            <Link
-              to='/'
-              className='flex items-center -mb-0.5 border-b-2 px-4 border-transparent text-white'
-              // activeClassName='border-b-2 border-white'
-            >
+            <Link to='/' className='flex items-center px-4 text-white'>
               Cụm rạp
             </Link>
           </li>
-
-          {/* <li className='flex'>
-            <Link
-              to='/news'
-              className='flex items-center -mb-0.5 border-b-2 px-4 border-transparent text-white'
-              activeClassName='border-b-2 border-white'
-            >
-              News
-            </Link>
-          </li> */}
         </ul>
 
         <div className='items-center flex-shrink-0 hidden lg:flex'>
           {renderLogin()}
-
-          {/* <Select
-            defaultValue='en'
-            style={{ width: 100 }}
-            // onChange={handleChange}
-          >
-            <Option value='en'>Eng</Option>
-            <Option value='chi'>Chi</Option>
-
-            <Option value='vi'>Vi</Option>
-          </Select> */}
         </div>
+
         <button className='p-4 lg:hidden'>
           <svg
             xmlns='http://www.w3.org/2000/svg'
             fill='none'
             viewBox='0 0 24 24'
             stroke='currentColor'
-            className='w-6 h-6 text-coolGray-800'
+            className='w-6 h-6 text-white'
           >
             <path
               strokeLinecap='round'
@@ -152,8 +126,6 @@ export default function Header() {
             />
           </svg>
         </button>
-
-        {/* {t('hello.2')} */}
       </div>
     </header>
   );

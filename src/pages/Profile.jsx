@@ -74,7 +74,7 @@ export default function ProfilePage() {
         firstName,
         lastName,
         email: values.email,
-        phone: values.phoneNumber, // 👈 CHỈNH Ở ĐÂY
+        phone: values.phoneNumber,
         address: values.address,
         dateOfBirth: values.dateOfBirth,
         gender: values.gender,

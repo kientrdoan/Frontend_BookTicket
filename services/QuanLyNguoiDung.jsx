@@ -27,6 +27,10 @@ export class QuanLyNguoiDungService extends baseService {
     return this.get_token("/bookings/my-bookings")
   }
 
+  layThongTinChiTietHoaDon = (id) => {
+    return this.get_token(`/bookings/${id}`);
+  };
+
 }
 
 export const quanLyNguoiDungService = new QuanLyNguoiDungService();
