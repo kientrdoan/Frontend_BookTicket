@@ -14,6 +14,8 @@ export default function Ticket() {
   const [showQRFor, setShowQRFor] = useState(null);
   const dispatch = useDispatch();
 
+
+
   useEffect(() => {
     const fetchHoaDon = async () => {
       try {
@@ -86,7 +88,7 @@ export default function Ticket() {
               >
                 <div className='flex items-center justify-between mb-4'>
                   <h2 className='text-xl font-bold text-gray-800'>
-                    🎫 Vé #{ticket.id}
+                    🎫 Vé #{ticket.id} - {hoaDon.showtime?.id}
                   </h2>
                   <span className='text-sm text-gray-500'>
                     Ghế {ticket.seatId}
@@ -97,7 +99,7 @@ export default function Ticket() {
                   <div>
                     <span className='text-gray-500'>Tên phim: </span>
                     <span className='font-medium text-indigo-600'>
-                      {hoaDon.showtime?.movieTitle}
+                      {hoaDon.showtime?.movie.title}
                     </span>
                   </div>
                   <div>

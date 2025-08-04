@@ -44,7 +44,7 @@ const MultipleRowSlick = (props) => {
   const settings = {
     className: "center variable-width",
     infinite: props.arrFilm.length > 4,
-    slidesToShow: props.arrFilm.length >= 4 ? 4 : props.arrFilm.length, 
+    slidesToShow: props.arrFilm.length >= 4 ? 4 : props.arrFilm.length,
     slidesPerRow: 1,
     speed: 500,
     rows: props.arrFilm.length > 1 ? 2 : 1, 
