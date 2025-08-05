@@ -31,6 +31,9 @@ export class QuanLyPhimService extends baseService {
       // alert("Vui lòng nhập tên phim để tìm kiếm");
       return this.get(`/movies/search-by-title-and-cinema?cinemaId=${cinemaId}`);
     }
+    // else if (cinemaId === 0 && title.trim() === "") {
+    //   return this.get(`/movies?page=0&size=8`);
+    // }
   };
 
   // layThongTinPhim = (maPhim) => {

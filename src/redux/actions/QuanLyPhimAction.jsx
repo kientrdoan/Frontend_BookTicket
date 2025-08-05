@@ -11,39 +11,50 @@ export const layDanhSachPhimAction = (page) => {
         arrFilm: result.data.result.content,
       });
     } catch (error) {
-        console.log(error)
+      console.log(error);
     }
   };
 };
 
-
 export const layDanhSachPhimTheoCinameAndRoomAction = (idRoom) => {
   return async (dispath) => {
     try {
-      const result = await quanLyPhimService.layDanhSachPhimTheoCinemaAndRoom(idRoom);
-      console.log("FILM BY ROOM", result)
+      const result = await quanLyPhimService.layDanhSachPhimTheoCinemaAndRoom(
+        idRoom
+      );
+      console.log("FILM BY ROOM", result);
       dispath({
         type: "SET_PHIM_BY_ROOM",
         arrFilmByRoom: result.data.result,
       });
     } catch (error) {
-        console.log(error)
+      console.log(error);
     }
   };
 };
 
-
 export const layDanhSachPhimTheoTitleAction = (title, cinemaId) => {
   return async (dispath) => {
     try {
-      const result = await quanLyPhimService.layDanhSachPhimTheoTitle(title, cinemaId);
-      console.log("FILM BY TITLE", result)
-      dispath({
-        type: "SET_PHIM_BY_TITLE",
-        arrFilm: result.data.result,
-      });
+      if (cinemaId === 0 && title.trim() === "") {
+        const result = await quanLyPhimService.layDanhSachPhim(0);
+        dispath({
+          type: SET_DANH_SACH_PHIM,
+          arrFilm: result.data.result.content,
+        });
+      } else {
+        const result = await quanLyPhimService.layDanhSachPhimTheoTitle(
+          title,
+          cinemaId
+        );
+        console.log("FILM BY TITLE", result);
+        dispath({
+          type: "SET_PHIM_BY_TITLE",
+          arrFilm: result.data.result,
+        });
+      }
     } catch (error) {
-        console.log(error)
+      console.log(error);
     }
   };
 };

@@ -36,7 +36,6 @@ export default function Home() {
     const id = e.target.value;
     setCinemaId(id);
     // alert(`Bạn đã chọn rạp có ID: ${id}`);
-    // Nếu muốn lọc phim theo rạp thì dispatch action lọc tại đây
     dispatch(layDanhSachPhimTheoTitleAction(searchTerm, id));
   };
 
