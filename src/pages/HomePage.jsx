@@ -33,12 +33,15 @@ export default function Home() {
   };
 
   const handleCinemaChange = (e) => {
-    const id = e.target.value;
-    setCinemaId(id);
-    // alert(`Bạn đã chọn rạp có ID: ${id}`);
-    dispatch(layDanhSachPhimTheoTitleAction(searchTerm, id));
-  };
+  const id = parseInt(e.target.value);
+  setCinemaId(id);
 
+  if (id === 0) {
+    dispatch(layDanhSachPhimAction(0));
+  } else {
+    dispatch(layDanhSachPhimTheoTitleAction(searchTerm, id));
+  }
+};
   // Lọc danh sách phim theo từ khóa
   // const filteredFilms = arrFilm.filter((film) =>
   //   film.title?.toLowerCase().includes(searchTerm.toLowerCase())
@@ -65,10 +68,10 @@ export default function Home() {
             {/* Select chọn rạp */}
             <select
               className='w-full max-w-xs px-5 py-3 border border-gray-300 rounded-full shadow-md focus:outline-none focus:ring-2 focus:ring-indigo-500 text-lg'
-              defaultValue=''
+              defaultValue={0}
               onChange={handleCinemaChange}
             >
-              <option value='' disabled>
+              <option value={0}>
                 Chọn rạp phim...
               </option>
               {heThongRapChieu?.map((rap) => (
