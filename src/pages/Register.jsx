@@ -8,12 +8,14 @@ import dayjs from "dayjs";
 import * as Yup from "yup";
 import { dangKyAction } from "../redux/actions/QuanLyNguoiDungAction";
 import { useHistory } from "react-router-dom";
+import { message } from "antd";
 
 export default function Register(props) {
   const dispatch = useDispatch();
   const history = useHistory();
 
   const { userLogin } = useSelector((state) => state.QuanLyNguoiDungReducer);
+  const [messageApi, contextHolder] = message.useMessage();
 
   const formik = useFormik({
     initialValues: {
@@ -32,12 +34,14 @@ export default function Register(props) {
       username: Yup.string().required("Tài khoản không được để trống"),
       password: Yup.string().required("Mật khẩu không được để trống"),
       fullName: Yup.string().required("Họ và tên không được để trống"),
-      email: Yup.string().email("Email không hợp lệ").required("Email không được để trống"),
+      email: Yup.string()
+        .email("Email không hợp lệ")
+        .required("Email không được để trống"),
       phoneNumber: Yup.string().required("Số điện thoại không được để trống"),
       address: Yup.string().required("Địa chỉ không được để trống"),
       dateOfBirth: Yup.string().required("Ngày sinh không được để trống"),
     }),
-    onSubmit: (values) => {
+    onSubmit: async (values) => {
       const fullName = values.fullName?.trim() || "";
       const nameParts = fullName.split(" ");
       const firstName = nameParts[0] || "";
@@ -51,138 +55,182 @@ export default function Register(props) {
 
       delete finalValues.fullName;
 
-      dispatch(dangKyAction(finalValues, history));
+      try {
+        await dispatch(dangKyAction(finalValues, history));
+      } catch (errorMessage) {
+        // Hiển thị lỗi nếu đăng ký thất bại
+        // alert(errorMessage || "Đăng ký thất bại. Vui lòng thử lại!");
+        messageApi.error(errorMessage || "Đăng ký thất bại. Vui lòng thử lại!");
+      }
     },
   });
 
   return (
     <form onSubmit={formik.handleSubmit}>
-      <div className="mt-10 px-12 sm:px-24 md:px-48 lg:px-12">
-        <h2 className="text-center text-4xl text-indigo-900 font-display font-semibold">
+      {contextHolder}
+      <div className='mt-10 px-12 sm:px-24 md:px-48 lg:px-12'>
+        <h2 className='text-center text-4xl text-indigo-900 font-display font-semibold'>
           Đăng Ký để được nhiều ưu đãi
         </h2>
-        <div className="mt-6">
+        <div className='mt-6'>
           {/* Tài khoản */}
           <div>
-            <div className="text-sm font-bold text-gray-700 tracking-wide">Tài khoản</div>
+            <div className='text-sm font-bold text-gray-700 tracking-wide'>
+              Tài khoản
+            </div>
             <input
-              name="username"
+              name='username'
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               value={formik.values.username}
-              className="w-full text-lg py-2 border-b border-gray-300 focus:outline-none focus:border-indigo-500"
-              placeholder="Nhập vào tài khoản"
+              className='w-full text-lg py-2 border-b border-gray-300 focus:outline-none focus:border-indigo-500'
+              placeholder='Nhập vào tài khoản'
             />
             {formik.touched.username && formik.errors.username && (
-              <div className="text-red-500 text-sm mt-1">{formik.errors.username}</div>
+              <div className='text-red-500 text-sm mt-1'>
+                {formik.errors.username}
+              </div>
             )}
           </div>
 
           {/* Mật khẩu */}
-          <div className="mt-8">
-            <div className="text-sm font-bold text-gray-700 tracking-wide">Mật khẩu</div>
+          <div className='mt-8'>
+            <div className='text-sm font-bold text-gray-700 tracking-wide'>
+              Mật khẩu
+            </div>
             <input
-              type="password"
-              name="password"
+              type='password'
+              name='password'
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               value={formik.values.password}
-              className="w-full text-lg py-2 border-b border-gray-300 focus:outline-none focus:border-indigo-500"
-              placeholder="Nhập vào mật khẩu"
+              className='w-full text-lg py-2 border-b border-gray-300 focus:outline-none focus:border-indigo-500'
+              placeholder='Nhập vào mật khẩu'
             />
             {formik.touched.password && formik.errors.password && (
-              <div className="text-red-500 text-sm mt-1">{formik.errors.password}</div>
+              <div className='text-red-500 text-sm mt-1'>
+                {formik.errors.password}
+              </div>
             )}
           </div>
 
           {/* Họ và tên */}
-          <div className="mt-8">
-            <div className="text-sm font-bold text-gray-700 tracking-wide">Họ và tên</div>
+          <div className='mt-8'>
+            <div className='text-sm font-bold text-gray-700 tracking-wide'>
+              Họ và tên
+            </div>
             <input
-              name="fullName"
+              name='fullName'
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               value={formik.values.fullName}
-              className="w-full text-lg py-2 border-b border-gray-300 focus:outline-none focus:border-indigo-500"
-              placeholder="Nhập vào họ và tên"
+              className='w-full text-lg py-2 border-b border-gray-300 focus:outline-none focus:border-indigo-500'
+              placeholder='Nhập vào họ và tên'
             />
             {formik.touched.fullName && formik.errors.fullName && (
-              <div className="text-red-500 text-sm mt-1">{formik.errors.fullName}</div>
+              <div className='text-red-500 text-sm mt-1'>
+                {formik.errors.fullName}
+              </div>
             )}
           </div>
 
           {/* Email */}
-          <div className="mt-8">
-            <div className="text-sm font-bold text-gray-700 tracking-wide">Email</div>
+          <div className='mt-8'>
+            <div className='text-sm font-bold text-gray-700 tracking-wide'>
+              Email
+            </div>
             <input
-              name="email"
+              name='email'
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               value={formik.values.email}
-              className="w-full text-lg py-2 border-b border-gray-300 focus:outline-none focus:border-indigo-500"
-              placeholder="Nhập vào email"
+              className='w-full text-lg py-2 border-b border-gray-300 focus:outline-none focus:border-indigo-500'
+              placeholder='Nhập vào email'
             />
             {formik.touched.email && formik.errors.email && (
-              <div className="text-red-500 text-sm mt-1">{formik.errors.email}</div>
+              <div className='text-red-500 text-sm mt-1'>
+                {formik.errors.email}
+              </div>
             )}
           </div>
 
           {/* Số điện thoại */}
-          <div className="mt-8">
-            <div className="text-sm font-bold text-gray-700 tracking-wide">Số điện thoại</div>
+          <div className='mt-8'>
+            <div className='text-sm font-bold text-gray-700 tracking-wide'>
+              Số điện thoại
+            </div>
             <input
-              name="phoneNumber"
+              name='phoneNumber'
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               value={formik.values.phoneNumber}
-              className="w-full text-lg py-2 border-b border-gray-300 focus:outline-none focus:border-indigo-500"
-              placeholder="Nhập số điện thoại"
+              className='w-full text-lg py-2 border-b border-gray-300 focus:outline-none focus:border-indigo-500'
+              placeholder='Nhập số điện thoại'
             />
             {formik.touched.phoneNumber && formik.errors.phoneNumber && (
-              <div className="text-red-500 text-sm mt-1">{formik.errors.phoneNumber}</div>
+              <div className='text-red-500 text-sm mt-1'>
+                {formik.errors.phoneNumber}
+              </div>
             )}
           </div>
 
           {/* Địa chỉ */}
-          <div className="mt-8">
-            <div className="text-sm font-bold text-gray-700 tracking-wide">Địa chỉ</div>
+          <div className='mt-8'>
+            <div className='text-sm font-bold text-gray-700 tracking-wide'>
+              Địa chỉ
+            </div>
             <input
-              name="address"
+              name='address'
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               value={formik.values.address}
-              className="w-full text-lg py-2 border-b border-gray-300 focus:outline-none focus:border-indigo-500"
-              placeholder="Nhập địa chỉ"
+              className='w-full text-lg py-2 border-b border-gray-300 focus:outline-none focus:border-indigo-500'
+              placeholder='Nhập địa chỉ'
             />
             {formik.touched.address && formik.errors.address && (
-              <div className="text-red-500 text-sm mt-1">{formik.errors.address}</div>
+              <div className='text-red-500 text-sm mt-1'>
+                {formik.errors.address}
+              </div>
             )}
           </div>
 
           {/* Ngày sinh */}
-          <div className="mt-8">
-            <div className="text-sm font-bold text-gray-700 tracking-wide">Ngày sinh</div>
+          <div className='mt-8'>
+            <div className='text-sm font-bold text-gray-700 tracking-wide'>
+              Ngày sinh
+            </div>
             <DatePicker
               style={{ marginTop: "10px", padding: "8px 4px" }}
-              className="w-full py-8 border-b border-gray-300 focus:outline-none focus:border-indigo-500"
-              placeholder="Chọn ngày sinh"
-              format="DD/MM/YYYY"
-              value={formik.values.dateOfBirth ? dayjs(formik.values.dateOfBirth) : null}
+              className='w-full py-8 border-b border-gray-300 focus:outline-none focus:border-indigo-500'
+              placeholder='Chọn ngày sinh'
+              format='DD/MM/YYYY'
+              value={
+                formik.values.dateOfBirth
+                  ? dayjs(formik.values.dateOfBirth)
+                  : null
+              }
               onChange={(date) =>
-                formik.setFieldValue("dateOfBirth", date ? date.toISOString() : null)
+                formik.setFieldValue(
+                  "dateOfBirth",
+                  date ? date.toISOString() : null
+                )
               }
               onBlur={() => formik.setFieldTouched("dateOfBirth", true)}
             />
             {formik.touched.dateOfBirth && formik.errors.dateOfBirth && (
-              <div className="text-red-500 text-sm mt-1">{formik.errors.dateOfBirth}</div>
+              <div className='text-red-500 text-sm mt-1'>
+                {formik.errors.dateOfBirth}
+              </div>
             )}
           </div>
 
           {/* Giới tính */}
-          <div className="mt-8">
-            <div className="text-sm font-bold text-gray-700 tracking-wide">Giới tính</div>
+          <div className='mt-8'>
+            <div className='text-sm font-bold text-gray-700 tracking-wide'>
+              Giới tính
+            </div>
             <Radio.Group
-              className="mt-2"
+              className='mt-2'
               onChange={(e) => formik.setFieldValue("gender", e.target.value)}
               value={formik.values.gender}
             >
@@ -192,12 +240,12 @@ export default function Register(props) {
           </div>
 
           {/* Nút đăng ký */}
-          <div className="mt-10">
+          <div className='mt-10'>
             <button
-              type="submit"
-              className="bg-indigo-500 text-gray-100 p-4 w-full rounded-full tracking-wide
+              type='submit'
+              className='bg-indigo-500 text-gray-100 p-4 w-full rounded-full tracking-wide
               font-semibold font-display focus:outline-none focus:shadow-outline hover:bg-indigo-600
-              shadow-lg"
+              shadow-lg'
             >
               Đăng Ký
             </button>

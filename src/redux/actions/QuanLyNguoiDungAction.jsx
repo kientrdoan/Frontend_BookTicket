@@ -48,23 +48,40 @@ export const layThongTinNguoiDungAction = () => {
   };
 };
 
+// export const dangKyAction = (thongTinDangKy, history) => {
+//   return async (dispatch) => {
+//     try {
+//       const result = await quanLyNguoiDungService.dangKy(thongTinDangKy);
+
+//       if (result.status === 200) {
+//         // dispatch({
+//         //   type: DANG_NHAP_ACTION,
+//         //   thongTinDangNhap: result.data.result,
+//         // });
+//         history.goBack()
+//       }
+//     } catch (error) {
+//       console.log("error", error);
+//     }
+//   };
+// };
+
+
 export const dangKyAction = (thongTinDangKy, history) => {
   return async (dispatch) => {
     try {
       const result = await quanLyNguoiDungService.dangKy(thongTinDangKy);
 
       if (result.status === 200) {
-        // dispatch({
-        //   type: DANG_NHAP_ACTION,
-        //   thongTinDangNhap: result.data.result,
-        // });
-        history.goBack()
+        history.goBack();
       }
     } catch (error) {
-      console.log("error", error);
+      // Ném lỗi ra để component Register có thể bắt
+      throw error.response?.data?.message || "Đăng ký thất bại!";
     }
   };
 };
+
 
 export const capNhatThongTinNguoiDungAction = (thongTin) => {
   return async (dispatch) => {

@@ -148,7 +148,7 @@ export default function ProfilePage() {
                 </div>
 
                 {/* Email */}
-                {/* <div className='mt-8'>
+                <div className='mt-8'>
                   <div className='text-sm font-bold text-gray-700 tracking-wide'>
                     Email
                   </div>
@@ -165,7 +165,7 @@ export default function ProfilePage() {
                       {formik.errors.email}
                     </div>
                   )}
-                </div> */}
+                </div>
 
                 {/* Số điện thoại */}
                 <div className='mt-8'>
@@ -207,55 +207,58 @@ export default function ProfilePage() {
                   )}
                 </div>
 
-                {/* Ngày sinh */}
-                <div className='mt-8'>
-                  <div className='text-sm font-bold text-gray-700 tracking-wide'>
-                    Ngày sinh
-                  </div>
-                  <DatePicker
-                    style={{ marginTop: "10px", padding: "8px 4px" }}
-                    className='w-full py-8 border-b border-gray-300 focus:outline-none focus:border-indigo-500'
-                    placeholder='Chọn ngày sinh'
-                    format='DD/MM/YYYY'
-                    value={
-                      formik.values.dateOfBirth
-                        ? dayjs(formik.values.dateOfBirth)
-                        : null
-                    }
-                    onChange={(date) =>
-                      formik.setFieldValue(
-                        "dateOfBirth",
-                        date ? date.toISOString() : null
-                      )
-                    }
-                    onBlur={() => formik.setFieldTouched("dateOfBirth", true)}
-                  />
-                  {formik.touched.dateOfBirth && formik.errors.dateOfBirth && (
-                    <div className='text-red-500 text-sm mt-1'>
-                      {formik.errors.dateOfBirth}
+                {/* Ngay Sinh - Gioi Tinh */}
+                <div className='flex justify-between items-center'>
+                  {/* Ngày sinh */}
+                  <div className='mt-8 flex-1 mr-8'>
+                    <div className='text-sm font-bold text-gray-700 tracking-wide'>
+                      Ngày sinh
                     </div>
-                  )}
-                </div>
-
-                {/* Giới tính */}
-                <div className='mt-8'>
-                  <div className='text-sm font-bold text-gray-700 tracking-wide'>
-                    Giới tính
+                    <DatePicker
+                      style={{ marginTop: "10px", padding: "8px 4px" }}
+                      className='w-full py-8 border-b border-gray-300 focus:outline-none focus:border-indigo-500'
+                      placeholder='Chọn ngày sinh'
+                      format='DD/MM/YYYY'
+                      value={
+                        formik.values.dateOfBirth
+                          ? dayjs(formik.values.dateOfBirth)
+                          : null
+                      }
+                      onChange={(date) =>
+                        formik.setFieldValue(
+                          "dateOfBirth",
+                          date ? date.toISOString() : null
+                        )
+                      }
+                      onBlur={() => formik.setFieldTouched("dateOfBirth", true)}
+                    />
+                    {formik.touched.dateOfBirth &&
+                      formik.errors.dateOfBirth && (
+                        <div className='text-red-500 text-sm mt-1'>
+                          {formik.errors.dateOfBirth}
+                        </div>
+                      )}
                   </div>
-                  <Radio.Group
-                    className='mt-2'
-                    onChange={(e) =>
-                      formik.setFieldValue("gender", e.target.value)
-                    }
-                    value={formik.values.gender}
-                  >
-                    <Radio value={true}>Nam</Radio>
-                    <Radio value={false}>Nữ</Radio>
-                  </Radio.Group>
-                </div>
 
-                {/* Nút đăng ký */}
-                <div className='mt-10'>
+                  {/* Giới tính */}
+                  <div className='mt-8'>
+                    <div className='text-sm font-bold text-gray-700 tracking-wide'>
+                      Giới tính
+                    </div>
+                    <Radio.Group
+                      className='mt-2'
+                      onChange={(e) =>
+                        formik.setFieldValue("gender", e.target.value)
+                      }
+                      value={formik.values.gender}
+                    >
+                      <Radio value={true}>Nam</Radio>
+                      <Radio value={false}>Nữ</Radio>
+                    </Radio.Group>
+                  </div>
+                </div>
+                {/* Nút cap nhat */}
+                <div className='mt-4'>
                   <button
                     type='submit'
                     className='bg-indigo-500 text-gray-100 p-4 w-full rounded-full tracking-wide
@@ -265,6 +268,7 @@ export default function ProfilePage() {
                     Cập nhật
                   </button>
                 </div>
+
               </div>
             </div>
           </form>

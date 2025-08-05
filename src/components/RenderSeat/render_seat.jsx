@@ -1,11 +1,14 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import SeatCell from "./seat_cell";
+import { message } from 'antd';
 
 export default function SelectSeat() {
   const dispatch = useDispatch();
   const { infoShowtime, danhSachGheDangDat, danhSachIdGheDangDat, infoTicket } =
     useSelector((state) => state.QuanLyDatVeReducer);
+
+  const [messageApi, contextHolder] = message.useMessage();
 
   const seats = infoShowtime?.room?.seats || [];
 
@@ -22,6 +25,7 @@ export default function SelectSeat() {
         newSelection.push(seatLabel);
         newIdSelection.push(seatId);
       } else {
+        messageApi.warning("Bạn chỉ được chọn tối đa 5 ghế!");
         return;
       }
     }
@@ -57,8 +61,10 @@ export default function SelectSeat() {
               <SeatCell
                 key={seat.id}
                 seatLabel={seat.name}
-                isDisabled={isBooked || overLimit}
+                // isDisabled={isBooked || overLimit}
+                isDisabled={isBooked}
                 isSelected={isSelected}
+                // className={`${overLimit ? "cursor-not-allowed" : "cursor-pointer"}`}
                 onSelect={() => handleSelectSeat(seat.name, seat.id)}
               />
             );
@@ -77,6 +83,7 @@ export default function SelectSeat() {
 
   return (
     <div className='max-w-4xl mx-auto'>
+      {contextHolder}
       <div className='text-center text-lg font-semibold my-4'>Chọn Ghế</div>
 
       {/* Danh sách ghế */}
