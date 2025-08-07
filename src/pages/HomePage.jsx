@@ -29,7 +29,8 @@ export default function Home() {
 
   useEffect(() => {
     // Chỉ gọi API phân trang khi không có tìm kiếm
-    if (!isSearching) {
+    console.log("is", isSearching)
+    if (isSearching === false) {
       // alert("get all")
       dispatch(layDanhSachPhimAction(page));
     }
@@ -45,7 +46,7 @@ export default function Home() {
     setSearchTerm(term);
 
     const isCurrentlySearching =
-      searchTerm.trim() !== "" || cinemaId !== 0 || genresId.length > 0;
+      term.trim() !== "" || cinemaId !== 0 || genresId.length > 0;
     setIsSearching(isCurrentlySearching);
 
     if (isCurrentlySearching) {
@@ -62,7 +63,7 @@ export default function Home() {
     setCinemaId(id);
 
     const isCurrentlySearching =
-      searchTerm.trim() !== "" || cinemaId !== 0 || genresId.length > 0;
+      searchTerm.trim() !== "" || id !== 0 || genresId.length > 0;
     setIsSearching(isCurrentlySearching);
 
     if (isCurrentlySearching) {
@@ -189,9 +190,9 @@ export default function Home() {
             arrFilm={arrFilm}
             setPage={setPage}
             page={page}
-            isCurrentlySearching={isSearching}
+            // isCurrentlySearching={isSearching}
             totalPage={totalPages}
-            isSearching={isSearching}
+            // isSearching={isSearching}
           />
         </div>
       </section>
