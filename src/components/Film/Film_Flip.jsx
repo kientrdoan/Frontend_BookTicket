@@ -18,7 +18,6 @@ export default function Film_Flip({ phim }) {
     // Kiểm tra user đăng nhập (dùng localStorage, hoặc Redux nếu bạn dùng)
     const userLogin = localStorage.getItem(USER_LOGIN);
 
-
     if (userLogin) {
       history.push(`/detail/${phim.id}`);
     } else {
@@ -33,7 +32,7 @@ export default function Film_Flip({ phim }) {
         <div className={styles["flip-card-front"]}>
           <img
             src={phim.poster}
-            alt="Poster"
+            alt='Poster'
             style={{ width: 300, height: 200 }}
             onError={(e) => {
               e.target.onerror = null;
@@ -44,10 +43,10 @@ export default function Film_Flip({ phim }) {
 
         {/* BACK */}
         <div className={styles["flip-card-back"]}>
-          <div className="absolute top-0 left-0">
+          <div className='absolute top-0 left-0'>
             <img
               src={phim.poster}
-              alt="Poster"
+              alt='Poster'
               style={{ width: 300, height: 200 }}
               onError={(e) => {
                 e.target.onerror = null;
@@ -57,25 +56,27 @@ export default function Film_Flip({ phim }) {
           </div>
 
           <div
-            className="absolute w-full h-full bg-black/50 flex justify-center items-center"
+            className='absolute w-full h-full bg-black/50 flex justify-center items-center'
             onClick={showTrailer}
           >
             <div>
-              <div className="rounded-full cursor-pointer">
-                <PlayCircleOutlined style={{ fontSize: "50px", color: "white" }} />
-              </div>
-              <div className="text-2xl mt-2 font-bold text-white text-center">
-                {phim.title}
+              <div className='rounded-full cursor-pointer'>
+                <PlayCircleOutlined
+                  style={{ fontSize: "50px", color: "white" }}
+                />
               </div>
             </div>
           </div>
         </div>
       </div>
 
+      <div className='block bg-green-300 text-center cursor-pointer py-2 text-white font-bold'>
+        {phim.title}
+      </div>
       {/* Đặt vé */}
       <div
         onClick={handleDatVe}
-        className="block bg-orange-300 text-center cursor-pointer py-2 my-2 text-white font-bold"
+        className='block bg-orange-300 text-center cursor-pointer py-2 my-2 text-white font-bold'
       >
         ĐẶT VÉ
       </div>
@@ -90,12 +91,12 @@ export default function Film_Flip({ phim }) {
         destroyOnClose
       >
         <iframe
-          width="100%"
-          height="450"
+          width='100%'
+          height='450'
           src={phim.trailer?.replace("watch?v=", "embed/")}
-          title="Trailer"
-          frameBorder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          title='Trailer'
+          frameBorder='0'
+          allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
           allowFullScreen
         ></iframe>
       </Modal>

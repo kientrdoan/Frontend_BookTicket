@@ -9,6 +9,7 @@ import "slick-carousel/slick/slick-theme.css";
 // 👇 App được dynamic import và TẮT SSR
 const App = dynamic(() => import("../App"), { ssr: false });
 
+
 export default function MyApp() {
   return (
     <Provider store={store}>

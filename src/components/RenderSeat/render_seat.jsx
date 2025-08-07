@@ -48,8 +48,8 @@ export default function SelectSeat() {
   // Render tất cả ghế, mỗi hàng 12 ghế
   const renderSeats = () => {
     const rows = [];
-    for (let i = 0; i < seats.length; i += 12) {
-      const rowSeats = seats.slice(i, i + 12);
+    for (let i = 0; i < seats.length; i += 8) {
+      const rowSeats = seats.slice(i, i + 8);
       const row = (
         <tr key={`row-${i}`} className='flex items-center gap-2 mb-2'>
           {rowSeats.map((seat) => {

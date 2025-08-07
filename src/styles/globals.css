@@ -24,3 +24,25 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+.no-border-select .ant-select-selector {
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.no-border-select .ant-select-selector:hover,
+.no-border-select .ant-select-selector:focus {
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* Làm chữ trong Select đậm và tối hơn */
+.no-border-select .ant-select-selection-item {
+  font-weight: 600;
+  color: #1f2937; /* text-gray-800 */
+}
+
+.no-border-select .ant-select-selection-placeholder {
+  color: #9ca3af; /* text-gray-400 */
+  font-weight: 400;
+}

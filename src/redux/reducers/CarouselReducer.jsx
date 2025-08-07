@@ -4,7 +4,7 @@ const stateDefault = {
             "maBanner": 1,
             "maPhim": 1328,
             // "hinhAnh": "https://picsum.photos/id/1018/1000/600",
-            "hinhAnh": "http://movieapi.cyberlearn.vn/hinhanh/ban-tay-diet-quy.png",
+            "hinhAnh": "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcRsTe3jSyyOB-hWVLngnOMbB9uGEj79zLNAUTQHMKitmxtMsFnYKCt8WCJcG0uz9shVrMEDW9_j59LueS8hbkx3e2-wN7dNuZrvzIlexit1",
         }
     ]
 }

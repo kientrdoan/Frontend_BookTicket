@@ -1,14 +1,34 @@
 import { quanLyPhimService } from "../../../services/QuanLyPhimService";
 import { SET_DANH_SACH_PHIM } from "./types/QuanLyPhimType";
 
+export const layDanhSachTheLoaiAction = () => {
+  return async (dispath) => {
+    try {
+      const result = await quanLyPhimService.layDanhSachTheLoai();
+      // console.log("api", result.data.result.totalPages)
+      dispath({
+        type: "SET_DANH_SACH_THE_LOAI",
+        theLoai: result.data.result,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
 export const layDanhSachPhimAction = (page) => {
   return async (dispath) => {
     try {
       const result = await quanLyPhimService.layDanhSachPhim(page);
-      // console.log(result)
+      // console.log("api", result.data.result.totalPages)
       dispath({
         type: SET_DANH_SACH_PHIM,
         arrFilm: result.data.result.content,
+      });
+
+      dispath({
+        type: "SET_TOTAL_PAGE",
+        totalPages: result.data.result.totalPages,
       });
     } catch (error) {
       console.log(error);
@@ -33,10 +53,10 @@ export const layDanhSachPhimTheoCinameAndRoomAction = (idRoom) => {
   };
 };
 
-export const layDanhSachPhimTheoTitleAction = (title, cinemaId) => {
+export const layDanhSachPhimTheoTitleAction = (title, cinemaId, genresId) => {
   return async (dispath) => {
     try {
-      if (cinemaId === 0 && title.trim() === "") {
+      if (cinemaId === 0 && title.trim() === "" && genresId.length === 0) {
         const result = await quanLyPhimService.layDanhSachPhim(0);
         dispath({
           type: SET_DANH_SACH_PHIM,
@@ -45,9 +65,9 @@ export const layDanhSachPhimTheoTitleAction = (title, cinemaId) => {
       } else {
         const result = await quanLyPhimService.layDanhSachPhimTheoTitle(
           title,
-          cinemaId
+          cinemaId,
+          genresId
         );
-        console.log("FILM BY TITLE", result);
         dispath({
           type: "SET_PHIM_BY_TITLE",
           arrFilm: result.data.result,

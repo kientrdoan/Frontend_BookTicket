@@ -6,31 +6,32 @@ export class QuanLyNguoiDungService extends baseService {
   }
 
   dangNhap = (thongTinDangNhap) => {
-    // {taiKhoan:'',matKhau:''}
     return this.post("/auth/login", thongTinDangNhap);
   };
 
+  verifyOtp = (thongTinDangNhap, otp) => {
+    return this.post(`/accounts/complete-register?otp=${otp}`, thongTinDangNhap);
+  };
+
   dangKy = (thongTinDangKy) => {
-    return this.post("/accounts/register", thongTinDangKy);
+    return this.post("/accounts/send-otp", thongTinDangKy);
   };
 
   layThongTinNguoiDung = () => {
-    return this.get_token("/accounts/customer/profile")
+    return this.get_token("/accounts/customer/profile");
   };
 
   capNhatTinNguoiDung = (thongTin) => {
-    return this.put("/accounts/profile", thongTin)
+    return this.put("/accounts/profile", thongTin);
   };
 
-
   layThongTinHoaDon = () => {
-    return this.get_token("/bookings/my-bookings")
-  }
+    return this.get_token("/bookings/my-bookings");
+  };
 
   layThongTinChiTietHoaDon = (id) => {
     return this.get_token(`/bookings/${id}`);
   };
-
 }
 
 export const quanLyNguoiDungService = new QuanLyNguoiDungService();

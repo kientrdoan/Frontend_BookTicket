@@ -73,8 +73,27 @@ export const dangKyAction = (thongTinDangKy, history) => {
       const result = await quanLyNguoiDungService.dangKy(thongTinDangKy);
 
       if (result.status === 200) {
-        history.goBack();
+         return true;
+        // history.goBack();
       }
+      return false
+    } catch (error) {
+      // Ném lỗi ra để component Register có thể bắt
+      throw error.response?.data?.message || "Đăng ký thất bại!";
+    }
+  };
+};
+
+export const verifyOtpAction = (thongTinDangKy, otp, history) => {
+  return async (dispatch) => {
+    try {
+      const result = await quanLyNguoiDungService.verifyOtp(thongTinDangKy, otp);
+      console.log("otp result", result)
+      if (result.status === 200) {
+        // history.goBack();
+        return true;
+      }
+      return false
     } catch (error) {
       // Ném lỗi ra để component Register có thể bắt
       throw error.response?.data?.message || "Đăng ký thất bại!";

@@ -9,6 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@mui/icons-material": "^7.3.1",
+    "@mui/material": "^7.3.1",
     "@tailwindcss/vite": "^4.1.7",
     "@tsamantanis/react-glassmorphism": "^1.1.2",
     "antd": "^5.26.7",

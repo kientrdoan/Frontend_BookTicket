@@ -1,12 +1,15 @@
 /* eslint-disable no-unused-vars */
 import { useFormik } from "formik";
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { DatePicker, Radio } from "antd";
+import { DatePicker, Radio, Modal, Input } from "antd";
 import dayjs from "dayjs";
 import * as Yup from "yup";
-import { dangKyAction } from "../redux/actions/QuanLyNguoiDungAction";
+import {
+  dangKyAction,
+  verifyOtpAction,
+} from "../redux/actions/QuanLyNguoiDungAction";
 import { useHistory } from "react-router-dom";
 import { message } from "antd";
 
@@ -16,6 +19,10 @@ export default function Register(props) {
 
   const { userLogin } = useSelector((state) => state.QuanLyNguoiDungReducer);
   const [messageApi, contextHolder] = message.useMessage();
+
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [otp, setOtp] = useState("");
+  const [infoUserLogin, setInfoUserLogin] = useState();
 
   const formik = useFormik({
     initialValues: {
@@ -55,15 +62,49 @@ export default function Register(props) {
 
       delete finalValues.fullName;
 
+      setInfoUserLogin(finalValues);
+
       try {
-        await dispatch(dangKyAction(finalValues, history));
+        const result = await dispatch(dangKyAction(finalValues, history));
+
+        if (result === true) {
+          setIsModalVisible(true);
+        } else {
+          messageApi.error("Đăng ký thất bại. Vui lòng thử lại!");
+        }
       } catch (errorMessage) {
-        // Hiển thị lỗi nếu đăng ký thất bại
-        // alert(errorMessage || "Đăng ký thất bại. Vui lòng thử lại!");
         messageApi.error(errorMessage || "Đăng ký thất bại. Vui lòng thử lại!");
       }
     },
   });
+
+  // Handler for OTP modal submission
+  const handleOtpSubmit = async () => {
+    console.log("OTP submitted:", otp);
+    // setIsModalVisible(false);
+    try {
+      const result = await dispatch(verifyOtpAction(infoUserLogin, otp, history));
+
+      if (result === true) {
+        setIsModalVisible(false);
+        setOtp("")
+        history.goBack()
+      } else {
+        messageApi.error("OTP sai. Vui lòng thử lại!");
+      }
+    } catch (errorMessage) {
+      messageApi.error(errorMessage || "Đăng ký thất bại. Vui lòng thử lại!");
+    }
+    setOtp("");
+
+    // messageApi.success("Đăng ký thành công! Vui lòng đăng nhập.");
+  };
+
+  // Handler for closing the OTP modal
+  const handleOtpCancel = () => {
+    setIsModalVisible(false);
+    setOtp("");
+  };
 
   return (
     <form onSubmit={formik.handleSubmit}>
@@ -252,6 +293,27 @@ export default function Register(props) {
           </div>
         </div>
       </div>
+
+      {/* OTP Modal */}
+      <Modal
+        title='Nhập mã OTP'
+        open={isModalVisible}
+        onOk={handleOtpSubmit}
+        onCancel={handleOtpCancel}
+        okText='Xác nhận'
+        cancelText='Hủy'
+      >
+        <p>
+          Một mã OTP đã được gửi đến email của bạn. Vui lòng nhập mã để hoàn tất
+          đăng ký.
+        </p>
+        <Input
+          placeholder='Mã OTP'
+          value={otp}
+          onChange={(e) => setOtp(e.target.value)}
+          style={{ marginTop: "20px" }}
+        />
+      </Modal>
     </form>
   );
 }
