@@ -44,7 +44,7 @@ export class QuanLyPhimService extends baseService {
   //     return this.get(`/api/QuanLyPhim/LayThongTinPhim?MaPhim=${maPhim}`)
   // }
 
-  layDanhSachPhimTheoTitle = (title, cinemaId, genresId) => {
+  layDanhSachPhimTheoTitle = (title, cinemaId, genresId, date) => {
     const params = new URLSearchParams();
 
     if (title && title.trim() !== "") {
@@ -57,6 +57,10 @@ export class QuanLyPhimService extends baseService {
 
     if (Array.isArray(genresId) && genresId.length > 0) {
       params.append("genreIds", genresId.join(","));
+    }
+
+    if (date && date !== "") {
+      params.append("date", date.trim());
     }
 
     // Trường hợp không có param nào → trả về mặc định 8 phim đầu

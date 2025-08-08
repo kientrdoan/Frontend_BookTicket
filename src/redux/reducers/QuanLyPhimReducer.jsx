@@ -59,6 +59,8 @@ const stateDefault = {
   totalPages: 0,
   showTime: 0,
 
+  selectedDate: null,
+
   arrFilmDefault: [],
 
   // nowShowing: true,
@@ -148,6 +150,11 @@ export const QuanLyPhimReducer = (state = stateDefault, action) => {
           (film) => film.upcoming === true
         );
       }
+      return { ...state };
+    }
+
+    case "SET_SELECTED_DATE": {
+      state.selectedDate = action.selectedDate;
       return { ...state };
     }
 

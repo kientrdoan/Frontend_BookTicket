@@ -20,6 +20,11 @@ export default function Detail(props) {
   const lichChieuPhim = useSelector(
     (state) => state.QuanLyRapReducer.lichChieuPhim
   );
+
+  const selectedDate = useSelector(
+    (state) => state.QuanLyPhimReducer.selectedDate
+  );
+
   const dispatch = useDispatch();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -84,22 +89,6 @@ export default function Detail(props) {
                   }}
                 />
               </div>
-
-              {/* Info */}
-              {/* <div className='col-span-2 ml-5'>
-                <p className='text-sm mb-4'>
-                  Ngày phát hành:{" "}
-                  {moment(filmDetail.releaseDate).format("DD.MM.YYYY")}
-                </p>
-                <p className='text-4xl'>{filmDetail.title}</p>
-                <p>{filmDetail.description}</p>
-
-                <p>
-                  Thể loại:{" "}
-                  {filmDetail.genres?.map((genre) => genre.name).join(", ") ||
-                    "Đang cập nhật"}
-                </p>
-              </div> */}
             </div>
           </div>
         </div>
@@ -116,24 +105,41 @@ export default function Detail(props) {
                       key={index}
                     >
                       {Object.entries(rooms).map(
-                        ([roomName, showtimes], rIndex) => (
-                          <div key={rIndex} className='mt-5'>
-                            <p className='text-lg font-semibold'>{roomName}</p>
-                            <div className='grid grid-cols-4 gap-3 mt-2'>
-                              {showtimes.map((showtime) => (
-                                <Link
-                                  key={showtime.id}
-                                  to={`/checkout/${showtime.id}`}
-                                  className='text-green-800 font-bold hover:text-orange-600'
-                                >
-                                  {moment(showtime.startTime).format(
-                                    "DD/MM/YYYY hh:mm A"
-                                  )}
-                                </Link>
-                              ))}
+                        ([roomName, showtimes], rIndex) => {
+                          // Lọc suất chiếu theo ngày
+                          const filteredShowtimes = showtimes.filter((st) => {
+                            if (!selectedDate) return true;
+                            return (
+                              moment(st.startTime).format("YYYY-MM-DD") ===
+                              selectedDate
+                            );
+                          });
+
+                          // Nếu không còn suất hợp lệ → bỏ qua room này
+                          if (filteredShowtimes.length === 0) return null;
+
+                          return (
+                            <div key={rIndex} className='mt-5'>
+                              <p className='text-lg font-semibold'>
+                                {roomName}
+                              </p>
+
+                              <div className='grid grid-cols-4 gap-3 mt-2'>
+                                {filteredShowtimes.map((showtime) => (
+                                  <Link
+                                    key={showtime.id}
+                                    to={`/checkout/${showtime.id}`}
+                                    className='text-green-800 font-bold hover:text-orange-600'
+                                  >
+                                    {moment(showtime.startTime).format(
+                                      "DD/MM/YYYY hh:mm A"
+                                    )}
+                                  </Link>
+                                ))}
+                              </div>
                             </div>
-                          </div>
-                        )
+                          );
+                        }
                       )}
                     </TabPane>
                   )
@@ -165,11 +171,12 @@ export default function Detail(props) {
                   </span>
                 </p>
 
-                 <p className='text-sm flex items-center'>
+                <p className='text-sm flex items-center'>
                   👤 <span className='ml-1 font-medium'>Diễn viên: </span>
                   <span className='ml-1 text-blue-600'>
-                    {filmDetail.actors?.map((actor) => actor.lastName + " " + actor.firstName).join(", ") ||
-                      "Đang cập nhật"}
+                    {filmDetail.actors
+                      ?.map((actor) => actor.lastName + " " + actor.firstName)
+                      .join(", ") || "Đang cập nhật"}
                   </span>
                 </p>
               </div>

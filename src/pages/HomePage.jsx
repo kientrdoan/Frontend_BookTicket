@@ -10,28 +10,25 @@ import {
 } from "../redux/actions/QuanLyPhimAction";
 import { layDanhSachHeThongRapAction } from "../redux/actions/QuanLyRapAction";
 import HomeCarousel from "@/my_templates/HomeLayout/Carousel/HomeCarousel";
-import { SET_DANH_SACH_PHIM } from "@/redux/actions/types/QuanLyPhimType";
-import { Select } from "antd"; // Import Select từ antd
+import { Select, DatePicker } from "antd"; // Thêm DatePicker
+import dayjs from "dayjs";
 
 export default function Home() {
   const dispatch = useDispatch();
-  const { arrFilm, totalPages, showTime, theLoai } = useSelector(
+  const { arrFilm, totalPages, showTime, theLoai, selectedDate } = useSelector(
     (state) => state.QuanLyPhimReducer
   );
   const { heThongRapChieu } = useSelector((state) => state.QuanLyRapReducer);
-  const [page, setPage] = useState(0);
-  console.log("arrFilm", arrFilm);
 
+  const [page, setPage] = useState(0);
   const [searchTerm, setSearchTerm] = useState("");
   const [cinemaId, setCinemaId] = useState(0);
   const [genresId, setGenresId] = useState([]);
+  // const [selectedDate, setSelectedDate] = useState(null); // Thêm ngày chiếu
   const [isSearching, setIsSearching] = useState(false);
 
   useEffect(() => {
-    // Chỉ gọi API phân trang khi không có tìm kiếm
-    console.log("is", isSearching)
-    if (isSearching === false) {
-      // alert("get all")
+    if (!isSearching) {
       dispatch(layDanhSachPhimAction(page));
     }
   }, [page, isSearching, showTime]);
@@ -41,72 +38,55 @@ export default function Home() {
     dispatch(layDanhSachTheLoaiAction());
   }, []);
 
+  const triggerSearch = (term, cinema, genres, date) => {
+    const isCurrentlySearching =
+      term.trim() !== "" || cinema !== 0 || genres.length > 0 || date !== null;
+    setIsSearching(isCurrentlySearching);
+
+    setPage(0);
+
+    if (isCurrentlySearching) {
+      dispatch(layDanhSachPhimTheoTitleAction(term, cinema, genres, date));
+    } else {
+      dispatch(layDanhSachPhimAction(0));
+    }
+  };
+
   const handleSearchChange = (e) => {
     const term = e.target.value;
     setSearchTerm(term);
-
-    const isCurrentlySearching =
-      term.trim() !== "" || cinemaId !== 0 || genresId.length > 0;
-    setIsSearching(isCurrentlySearching);
-
-    if (isCurrentlySearching) {
-      setPage(0);
-      dispatch(layDanhSachPhimTheoTitleAction(term, cinemaId, genresId));
-    } else {
-      setPage(0);
-      dispatch(layDanhSachPhimAction(0));
-    }
+    triggerSearch(term, cinemaId, genresId, selectedDate);
   };
 
   const handleCinemaChange = (e) => {
     const id = parseInt(e.target.value);
     setCinemaId(id);
-
-    const isCurrentlySearching =
-      searchTerm.trim() !== "" || id !== 0 || genresId.length > 0;
-    setIsSearching(isCurrentlySearching);
-
-    if (isCurrentlySearching) {
-      setPage(0);
-      dispatch(layDanhSachPhimTheoTitleAction(searchTerm, id, genresId));
-    } else {
-      setPage(0);
-      dispatch(layDanhSachPhimAction(0));
-    }
+    triggerSearch(searchTerm, id, genresId, selectedDate);
   };
 
   const handleTheLoaiChange = (values) => {
     setGenresId(values);
+    triggerSearch(searchTerm, cinemaId, values, selectedDate);
+  };
 
-    console.log(values);
-
-    const isCurrentlySearching =
-      searchTerm.trim() !== "" || cinemaId !== 0 || values.length > 0;
-
-    setIsSearching(isCurrentlySearching);
-    setPage(0);
-
-    if (isCurrentlySearching) {
-      dispatch(layDanhSachPhimTheoTitleAction(searchTerm, cinemaId, values));
-    } else {
-      dispatch(layDanhSachPhimAction(0));
-    }
+  const handleDateChange = (date, dateString) => {
+    const formattedDate = date ? dayjs(date).format("YYYY-MM-DD") : null;
+    // console.log(formattedDate)
+    // setSelectedDate(formattedDate);
+    dispatch({
+      type: "SET_SELECTED_DATE",
+      selectedDate: formattedDate,
+    });
+    triggerSearch(searchTerm, cinemaId, genresId, formattedDate);
   };
 
   const handleStatusFilterChange = (value) => {
-    console.log(value)
-    if(showTime === value) {
-      dispatch({
-        type: "SET_SHOW_TIME",
-        showTime: 0
-      })
-    }else{
-       dispatch({
-        type: "SET_SHOW_TIME",
-        showTime: value
-      })
+    if (showTime === value) {
+      dispatch({ type: "SET_SHOW_TIME", showTime: 0 });
+    } else {
+      dispatch({ type: "SET_SHOW_TIME", showTime: value });
     }
-  }
+  };
 
   return (
     <div>
@@ -115,9 +95,8 @@ export default function Home() {
       {/* Search bar + phim */}
       <section className='text-gray-600 body-font' id='lich-chieu'>
         <div className='container px-5 pt-6 pb-24 mx-auto'>
-          {/* Thanh tìm kiếm đã được làm rộng hơn */}
-          <div className='flex justify-center items-center h-16 rounded-full shadow-md bg-white w-full max-w-7xl mx-auto border border-gray-300'>
-            {/* Thanh tìm kiếm tên phim */}
+          <div className='flex justify-center items-center h-16 rounded-4 shadow-md bg-white w-full max-w-[1200px] mx-auto border border-gray-300'>
+            {/* Tìm kiếm tên phim */}
             <div className='flex-1 border-r border-gray-300 px-4'>
               <input
                 type='text'
@@ -128,7 +107,7 @@ export default function Home() {
               />
             </div>
 
-            {/* Select chọn rạp */}
+            {/* Chọn rạp */}
             <div className='flex-1 border-r border-gray-300 px-4'>
               <select
                 className='w-full px-2 py-3 focus:outline-none text-lg bg-transparent'
@@ -144,20 +123,32 @@ export default function Home() {
               </select>
             </div>
 
-            {/* MultiSelect của Ant Design */}
-            <div className='flex-1 px-4'>
+            {/* Chọn thể loại */}
+            <div className='flex-1 border-r border-gray-300 px-4'>
               <Select
                 mode='multiple'
                 placeholder='Thể loại'
+                className='w-full text-lg font-semibold text-gray-800 no-border-select'
                 onChange={handleTheLoaiChange}
                 allowClear
-                className='w-full text-lg font-semibold text-gray-800 no-border-select'
                 style={{ width: "100%" }}
                 options={theLoai?.map((item) => ({
                   label: item.name,
                   value: item.id,
                 }))}
-              ></Select>
+              />
+            </div>
+
+            {/* DatePicker */}
+            <div className='flex-1 px-4'>
+              <DatePicker
+                className='w-full text-lg font-semibold text-gray-800 no-border-select'
+                placeholder='Ngày chiếu'
+                format='YYYY-MM-DD'
+                value={selectedDate ? dayjs(selectedDate, "YYYY-MM-DD") : null} // Hiển thị lại ngày
+                onChange={handleDateChange}
+                style={{ width: "100%" }}
+              />
             </div>
           </div>
 
@@ -190,9 +181,8 @@ export default function Home() {
             arrFilm={arrFilm}
             setPage={setPage}
             page={page}
-            // isCurrentlySearching={isSearching}
             totalPage={totalPages}
-            // isSearching={isSearching}
+            startDate={selectedDate}
           />
         </div>
       </section>

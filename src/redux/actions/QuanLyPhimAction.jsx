@@ -53,10 +53,10 @@ export const layDanhSachPhimTheoCinameAndRoomAction = (idRoom) => {
   };
 };
 
-export const layDanhSachPhimTheoTitleAction = (title, cinemaId, genresId) => {
+export const layDanhSachPhimTheoTitleAction = (title, cinemaId, genresId, date) => {
   return async (dispath) => {
     try {
-      if (cinemaId === 0 && title.trim() === "" && genresId.length === 0) {
+      if (cinemaId === 0 && title.trim() === "" && genresId.length === 0 && date.trim() === "") {
         const result = await quanLyPhimService.layDanhSachPhim(0);
         dispath({
           type: SET_DANH_SACH_PHIM,
@@ -66,7 +66,8 @@ export const layDanhSachPhimTheoTitleAction = (title, cinemaId, genresId) => {
         const result = await quanLyPhimService.layDanhSachPhimTheoTitle(
           title,
           cinemaId,
-          genresId
+          genresId,
+          date
         );
         dispath({
           type: "SET_PHIM_BY_TITLE",
