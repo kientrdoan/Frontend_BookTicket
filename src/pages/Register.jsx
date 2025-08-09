@@ -17,7 +17,7 @@ export default function Register(props) {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const { userLogin } = useSelector((state) => state.QuanLyNguoiDungReducer);
+  // const { userLogin } = useSelector((state) => state.QuanLyNguoiDungReducer);
   const [messageApi, contextHolder] = message.useMessage();
 
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -304,8 +304,10 @@ export default function Register(props) {
         cancelText='Hủy'
       >
         <p>
-          Một mã OTP đã được gửi đến email của bạn. Vui lòng nhập mã để hoàn tất
-          đăng ký.
+          Mã OTP đã được gửi đến email của bạn. 
+        </p>
+        <p>
+          Vui lòng nhập mã để hoàn tất đăng ký.
         </p>
         <Input
           placeholder='Mã OTP'

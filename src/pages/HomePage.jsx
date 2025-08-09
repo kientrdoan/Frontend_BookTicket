@@ -145,9 +145,12 @@ export default function Home() {
                 className='w-full text-lg font-semibold text-gray-800 no-border-select'
                 placeholder='Ngày chiếu'
                 format='YYYY-MM-DD'
-                value={selectedDate ? dayjs(selectedDate, "YYYY-MM-DD") : null} // Hiển thị lại ngày
+                value={selectedDate ? dayjs(selectedDate, "YYYY-MM-DD") : null}
                 onChange={handleDateChange}
                 style={{ width: "100%" }}
+                disabledDate={(current) => {
+                  return current && current < dayjs().startOf("day");
+                }}
               />
             </div>
           </div>

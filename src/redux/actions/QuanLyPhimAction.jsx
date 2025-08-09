@@ -23,7 +23,7 @@ export const layDanhSachPhimAction = (page) => {
       // console.log("api", result.data.result.totalPages)
       dispath({
         type: SET_DANH_SACH_PHIM,
-        arrFilm: result.data.result.content,
+        arrFilm: result.data.result.content.filter((film) => film.upcoming === true || film.nowShowing === true),
       });
 
       dispath({
@@ -60,7 +60,7 @@ export const layDanhSachPhimTheoTitleAction = (title, cinemaId, genresId, date) 
         const result = await quanLyPhimService.layDanhSachPhim(0);
         dispath({
           type: SET_DANH_SACH_PHIM,
-          arrFilm: result.data.result.content,
+          arrFilm: result.data.result.content.filter((film) => film.upcoming === true || film.nowShowing === true),
         });
       } else {
         const result = await quanLyPhimService.layDanhSachPhimTheoTitle(
@@ -71,7 +71,7 @@ export const layDanhSachPhimTheoTitleAction = (title, cinemaId, genresId, date) 
         );
         dispath({
           type: "SET_PHIM_BY_TITLE",
-          arrFilm: result.data.result,
+          arrFilm: result.data.result.filter((film) => film.upcoming === true || film.nowShowing === true),
         });
       }
     } catch (error) {
