@@ -234,6 +234,7 @@ export default function Home() {
             setPage={setPage}
             page={page}
             totalPage={totalPages}
+            isSearching= {isSearching}
             startDate={selectedDate}
           />
         </div>

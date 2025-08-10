@@ -241,7 +241,7 @@ export default function PaymentResult() {
                 </>
               ) : (
                 <>
-                  <button
+                  {/* <button
                     onClick={() => window.history.back()}
                     className="w-full bg-gradient-to-r from-blue-500 to-purple-600 text-white py-4 px-6 rounded-xl font-semibold text-center hover:from-blue-600 hover:to-purple-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
                   >
@@ -261,7 +261,7 @@ export default function PaymentResult() {
                       </svg>
                       <span>Thử lại</span>
                     </div>
-                  </button>
+                  </button> */}
 
                   <Link
                     to="/"

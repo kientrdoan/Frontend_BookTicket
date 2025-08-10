@@ -96,7 +96,7 @@ export default function Header() {
                 history.push("/profile");
                 setIsUserMenuOpen(false);
               }}
-              className="w-full px-4 py-2 text-left text-gray-700 hover:bg-gray-100 transition-colors duration-200 flex items-center space-x-2"
+              className="w-full px-2 py-2 text-left text-gray-700 hover:bg-gray-100 transition-colors duration-200 flex items-center space-x-2"
             >
               <svg
                 className="w-4 h-4"
