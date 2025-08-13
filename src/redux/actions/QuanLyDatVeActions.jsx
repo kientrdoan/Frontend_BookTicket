@@ -36,6 +36,7 @@ export const datVeAction = (thongTinDatVe) => {
   return async (dispatch, getState) => {
     try {
       // dispatch(displayLoadingAction)
+      console.log(thongTinDatVe)
       const result = await quanLyDatVeService.datVe(thongTinDatVe);
       console.log("dat ve", result.data.result);
 

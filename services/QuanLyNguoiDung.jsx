@@ -34,7 +34,7 @@ export class QuanLyNguoiDungService extends baseService {
   };
 
   thayDoiMatKhau = (payload) => {
-    return this.post_token(`/accounts/change-password${payload}`)
+    return this.post_token(`/accounts/change-password`, payload)
   }
 }
 
