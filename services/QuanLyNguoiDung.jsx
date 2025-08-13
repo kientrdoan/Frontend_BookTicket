@@ -32,6 +32,10 @@ export class QuanLyNguoiDungService extends baseService {
   layThongTinChiTietHoaDon = (id) => {
     return this.get_token(`/bookings/${id}`);
   };
+
+  thayDoiMatKhau = (payload) => {
+    return this.post_token(`/accounts/change-password${payload}`)
+  }
 }
 
 export const quanLyNguoiDungService = new QuanLyNguoiDungService();

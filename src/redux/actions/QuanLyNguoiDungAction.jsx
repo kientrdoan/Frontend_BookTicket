@@ -156,3 +156,26 @@ export const layThongTinChiTietHoaDonAction = (id) => {
     }
   };
 };
+
+
+export const thayDoiMatKhauAction = (thongTin) => {
+  return async (dispatch) => {
+    try {
+      const result = await quanLyNguoiDungService.thayDoiMatKhau(thongTin);
+      console.log("change pass", result)
+
+      if (result.status === 200) {
+        // dispatch({
+        //   type: SET_THONG_TIN_HOA_DON,
+        //   thongTinHoaDon: result.data.result,
+        // });
+
+        return Promise.resolve(result.data.result);
+      } else {
+        return Promise.reject(new Error("Cập nhật thất bại"));
+      }
+    } catch (error) {
+      return Promise.reject(error);
+    }
+  };
+};

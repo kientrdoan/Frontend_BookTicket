@@ -16,6 +16,7 @@ import { ProfileTemplate } from "./my_templates/ProfileTemplate";
 import CheckoutTemplate from "./my_templates/CheckoutTemplate";
 import Ticket from "./pages/Ticket";
 import Authenticate from "./pages/Authenticate";
+import ChangePassword from "./pages/ChangePassword";
 // import News from './pages/News';
 
 // export const history = createBrowserHistory();
@@ -34,7 +35,8 @@ function App() {
 
         <ProfileTemplate exact path='/profile' Component={Profile} />
         <ProfileTemplate exact path='/history' Component={BookingHistory} />
-         <ProfileTemplate exact path='/tickets/:invoiceId' Component={Ticket} />
+        <ProfileTemplate exact path='/change-password' Component={ChangePassword} />
+        <ProfileTemplate exact path='/tickets/:invoiceId' Component={Ticket} />
 
         <CheckoutTemplate path='/checkout/:id' exact Component={Checkout} />
 
