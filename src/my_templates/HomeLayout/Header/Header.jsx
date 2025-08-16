@@ -14,7 +14,7 @@ export default function Header() {
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  const { userLogin, thongTinNguoiDung } = useSelector(
+  const { thongTinNguoiDung } = useSelector(
     (state) => state.QuanLyNguoiDungReducer
   );
 
@@ -23,14 +23,14 @@ export default function Header() {
     dispatch(action);
   }, []);
 
-  useEffect(() => {
-    if (userLogin && userLogin.firstName) {
-      dispatch({
-        type: SET_THONG_TIN_NGUOI_DUNG,
-        thongTinNguoiDung: userLogin,
-      });
-    }
-  }, [dispatch, userLogin]);
+  // useEffect(() => {
+  //   if (thongTinNguoiDung && thongTinNguoiDung.firstName) {
+  //     dispatch({
+  //       type: SET_THONG_TIN_NGUOI_DUNG,
+  //       thongTinNguoiDung: userLogin,
+  //     });
+  //   }
+  // }, [dispatch, userLogin]);
 
   const handleLogout = () => {
     localStorage.removeItem(USER_LOGIN);
@@ -41,7 +41,7 @@ export default function Header() {
   };
 
   const renderLogin = () => {
-    if (_.isEmpty(userLogin)) {
+    if (_.isEmpty(thongTinNguoiDung)) {
       return (
         <div className="flex items-center space-x-4">
           <button

@@ -371,6 +371,7 @@ export default function Checkout(props) {
                   </div>
                 </div>
               </div>
+              
             </div>
           </div>
         </div>

@@ -62,43 +62,11 @@ export const datVeAction = (thongTinDatVe) => {
         alert("Lỗi khi xử lý thanh toán");
       }
 
-      //Đặt vé thành công gọi api load lại phòng vé
-      // await dispatch(layChiTietPhongVeAction(thongTinDatVe.maLichChieu))
-      // await dispatch({type:DAT_VE_HOAN_TAT})
-
-      // await dispatch(hideLoadingAction);
-
-      // let userLogin = getState().QuanLyNguoiDungReducer.userLogin;
-      //  connection.invoke('datGheThanhCong',userLogin.taiKhoan,thongTinDatVe.maLichChieu);
-
       dispatch({ type: CHUYEN_TAB });
     } catch (error) {
       // dispatch(hideLoadingAction)
       console.log(error);
     }
-  };
-};
-
-export const datGheAction = (ghe, maLichChieu) => {
-  return async (dispatch, getState) => {
-    //Đưa thông tin ghế lên reducer
-    await dispatch({
-      type: DAT_VE,
-      gheDuocChon: ghe,
-    });
-
-    //Call api về backend
-    let danhSachGheDangDat = getState().QuanLyDatVeReducer.danhSachGheDangDat;
-    let taiKhoan = getState().QuanLyNguoiDungReducer.userLogin.taiKhoan;
-
-    console.log("danhSachGheDangDat", danhSachGheDangDat);
-    console.log("taiKhoan", taiKhoan);
-    console.log("maLichChieu", maLichChieu);
-    //Biến mảng thành chuỗi
-    danhSachGheDangDat = JSON.stringify(danhSachGheDangDat);
-
-    //Call api signalR
-    // connection.invoke('datGhe',taiKhoan,danhSachGheDangDat,maLichChieu);
   };
 };
 

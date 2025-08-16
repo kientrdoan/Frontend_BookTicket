@@ -25,6 +25,7 @@ export default function Home() {
   const [cinemaId, setCinemaId] = useState(0);
   const [genresId, setGenresId] = useState([]);
   const [isSearching, setIsSearching] = useState(false);
+  console.log(arrFilm)
 
   useEffect(() => {
     if (!isSearching) {
@@ -233,7 +234,7 @@ export default function Home() {
             arrFilm={arrFilm}
             setPage={setPage}
             page={page}
-            totalPage={totalPages/8}
+            totalPage={totalPages}
             isSearching= {isSearching}
             startDate={selectedDate}
           />

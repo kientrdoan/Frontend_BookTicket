@@ -20,7 +20,7 @@ export const layDanhSachPhimAction = (page) => {
   return async (dispath) => {
     try {
       const result = await quanLyPhimService.layDanhSachPhim(page);
-      // console.log("api", result.data.result.totalPages)
+      console.log("api", result.data.result.totalPages)
       dispath({
         type: SET_DANH_SACH_PHIM,
         arrFilm: result.data.result.content.filter((film) => film.upcoming === true || film.nowShowing === true),

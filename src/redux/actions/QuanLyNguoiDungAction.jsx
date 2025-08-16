@@ -20,7 +20,6 @@ export const dangNhapAction = (thongTinDangNhap, history) => {
           type: DANG_NHAP_ACTION,
           thongTinDangNhap: result.data.result,
         });
-        //Chuyển hướng đăng nhập về trang trước đó
         history.goBack();
       }
     } catch (error) {

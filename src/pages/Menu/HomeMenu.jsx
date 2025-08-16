@@ -4,7 +4,7 @@ import { Tabs, Rate, Tag } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { layDanhSachPhimTheoCinameAndRoomAction } from "../../redux/actions/QuanLyPhimAction";
 import { useHistory } from "react-router-dom";
-import { USER_LOGIN } from "@/utils/settings/config";
+import { TOKEN, USER_LOGIN } from "@/utils/settings/config";
 import {
   CalendarOutlined,
   ClockCircleOutlined,
@@ -39,8 +39,8 @@ const HomeMenu = ({ heThongRapChieu }) => {
   }, [heThongRapChieu]);
 
   const handleMovieClick = (phim) => {
-    const userLogin = localStorage.getItem(USER_LOGIN);
-    if (userLogin) {
+    const login = localStorage.getItem(TOKEN);
+    if (login) {
       history.push(`/detail/${phim.id}`);
     } else {
       history.push("/login");
@@ -80,16 +80,6 @@ const HomeMenu = ({ heThongRapChieu }) => {
         <div className="flex items-center justify-between">
           <div>
             <h4 className="text-lg font-bold">{room.name}</h4>
-            {/* <p className="text-purple-100 text-sm">
-              {heThongRap.name} • {room.capacity || "120"} ghế
-            </p> */}
-          </div>
-          <div className="text-right">
-            {/* <div className="bg-white/20 rounded-full px-3 py-1"> */}
-              {/* <span className="text-sm font-medium">
-                {uniqueFilms.length} phim đang chiếu
-              </span> */}
-            {/* </div> */}
           </div>
         </div>
       </div>
@@ -158,7 +148,7 @@ const HomeMenu = ({ heThongRapChieu }) => {
                     <div className="flex items-center text-gray-600 text-sm">
                       <CalendarOutlined className="mr-2" />
                       <span>
-                        Khởi chiếu:{" "}
+                        Ngày phát hành:{" "}
                         {moment(phim.releaseDate).format("DD/MM/YYYY")}
                       </span>
                     </div>
@@ -263,9 +253,6 @@ const HomeMenu = ({ heThongRapChieu }) => {
                 <h3 className="font-bold text-gray-800 text-sm">
                   {heThongRap.name}
                 </h3>
-                {/* <p className="text-gray-500 text-xs">
-                  {heThongRap.rooms?.length || 0} phòng chiếu
-                </p> */}
               </div>
             </div>
           </div>

@@ -5,7 +5,7 @@ import { PlayCircleOutlined } from "@ant-design/icons";
 import { Modal } from "antd";
 import { useHistory } from "react-router-dom";
 import styles from "./Film_Flip.module.css";
-import { USER_LOGIN } from "@/utils/settings/config";
+import { TOKEN, USER_LOGIN } from "@/utils/settings/config";
 
 export default function Film_Flip({ phim }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -16,9 +16,9 @@ export default function Film_Flip({ phim }) {
   const handleCancel = () => setIsModalOpen(false);
 
   const handleDatVe = () => {
-    const userLogin = localStorage.getItem(USER_LOGIN);
+    const login = localStorage.getItem(TOKEN);
 
-    if (userLogin) {
+    if (login) {
       history.push(`/detail/${phim.id}`);
     } else {
       history.push("/login");
