@@ -45,7 +45,7 @@ export const layDanhSachPhimTheoCinameAndRoomAction = (idRoom) => {
       console.log("FILM BY ROOM", result);
       dispath({
         type: "SET_PHIM_BY_ROOM",
-        arrFilmByRoom: result.data.result,
+        arrFilmByRoom: result.data.result.filter((film) => film.upcoming === true || film.nowShowing === true),
       });
     } catch (error) {
       console.log(error);

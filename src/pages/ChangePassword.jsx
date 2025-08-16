@@ -206,7 +206,7 @@ export default function ChangePassword() {
             </div>
 
             {/* Security Tips */}
-            <div className='mb-8 p-4 bg-blue-50 rounded-lg border border-blue-200'>
+            {/* <div className='mb-8 p-4 bg-blue-50 rounded-lg border border-blue-200'>
               <h4 className='text-sm font-semibold text-blue-800 mb-2'>
                 Gợi ý tạo mật khẩu mạnh:
               </h4>
@@ -216,18 +216,18 @@ export default function ChangePassword() {
                 <li>• Không sử dụng thông tin cá nhân dễ đoán</li>
                 <li>• Không sử dụng mật khẩu đã dùng ở nơi khác</li>
               </ul>
-            </div>
+            </div> */}
 
             {/* Submit Button */}
             <div className='flex gap-4'>
               <button
                 type='submit'
-                disabled={formik.isSubmitting}
+                // disabled={formik.isSubmitting}
                 className='flex-1 bg-indigo-500 text-white p-4 rounded-full tracking-wide
                   font-semibold font-display focus:outline-none focus:shadow-outline hover:bg-indigo-600
                   shadow-lg disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200'
               >
-                {formik.isSubmitting ? "Đang xử lý..." : "Đổi mật khẩu"}
+                Đổi mật khẩu
               </button>
               <button
                 type='button'
