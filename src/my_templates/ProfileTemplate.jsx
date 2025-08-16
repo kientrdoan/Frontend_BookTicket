@@ -170,25 +170,6 @@ export const ProfileTemplate = (props) => {
                         ))}
                       </div>
 
-                      {/* Quick Stats */}
-                      {/* <div className="px-6 py-4 border-t border-gray-100">
-                        <div className="text-center">
-                          <div className="flex justify-around text-sm">
-                            <div className="text-center">
-                              <div className="font-bold text-blue-600 text-lg">
-                                0
-                              </div>
-                              <div className="text-gray-500">Vé đã đặt</div>
-                            </div>
-                            <div className="text-center">
-                              <div className="font-bold text-purple-600 text-lg">
-                                0
-                              </div>
-                              <div className="text-gray-500">Điểm tích lũy</div>
-                            </div>
-                          </div>
-                        </div>
-                      </div> */}
                     </div>
                   </div>
 
@@ -222,6 +203,7 @@ export const ProfileTemplate = (props) => {
                       </div>
                     </div>
                   </div>
+                  
                 </div>
               </div>
             </div>

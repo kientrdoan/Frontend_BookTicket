@@ -233,7 +233,7 @@ export default function Home() {
             arrFilm={arrFilm}
             setPage={setPage}
             page={page}
-            totalPage={totalPages}
+            totalPage={totalPages/8}
             isSearching= {isSearching}
             startDate={selectedDate}
           />

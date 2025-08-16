@@ -108,10 +108,10 @@ export const capNhatThongTinNguoiDungAction = (thongTin) => {
       const result = await quanLyNguoiDungService.capNhatTinNguoiDung(thongTin);
 
       if (result.status === 200) {
-        dispatch({
-          type: SET_THONG_TIN_HOA_DON,
-          thongTinHoaDon: result.data.result,
-        });
+        // dispatch({
+        //   type: SET_THONG_TIN_HOA_DON,
+        //   thongTinHoaDon: result.data.result,
+        // });
 
         return Promise.resolve(result.data.result);
       } else {
