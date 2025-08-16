@@ -20,7 +20,7 @@ export default function Register(props) {
   // const { userLogin } = useSelector((state) => state.QuanLyNguoiDungReducer);
   const [messageApi, contextHolder] = message.useMessage();
 
-  const [isModalVisible, setIsModalVisible] = useState(true);
+  const [isModalVisible, setIsModalVisible] = useState(false);
   const [otp, setOtp] = useState("");
   const [infoUserLogin, setInfoUserLogin] = useState();
 
